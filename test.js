@@ -1,6 +1,6 @@
 var paybook = require('./index.js');
 
-paybook.setApiKey("b7e57daf2b782bee22f05e38a1823c3a");
+paybook.setApiKey("YOUR API KEY HERE");
 paybook.setTest(true);
 var store = {
 	id_user: false,

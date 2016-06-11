@@ -157,12 +157,13 @@ action.setSite = function(id_site) {
 };
 
 action.catalogues = function(callback) {
-	api.cataloguesSites(function(err,resp1){
+	var token = store.getState().user.toke;
+	api.cataloguesSites(token, function(err,resp1){
 			if(err){
 				if(callback){ callback(err, undefined); }
 				return;
 			}
-			api.cataloguesSiteOrganizations(function(err,resp2){
+			api.cataloguesSiteOrganizations(token, function(err,resp2){
 					if(err){
 						if(callback){ callback(err, undefined); }
 						return;
@@ -199,7 +200,7 @@ action.signup = function(username, password, callback) {
 
 action.login = function(username, password, callback) {
 
-	api.getUsers(function(err,resp){
+	api.getUsers({}, function(err,resp){
 		if(err){
 			if(callback){ callback(err, undefined); }
 			return;

@@ -54,7 +54,9 @@ var apiPost = function(url, data, response, external) {
 
 	request
 	.post(dataUrl)
+	.type('json')
 	.send(data)
+	.set('Content-Type', '')
 	.set('Accept', 'application/json')
 	.end(function(err, res){
 			if(err){

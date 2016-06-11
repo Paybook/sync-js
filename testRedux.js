@@ -1,6 +1,6 @@
 var pb = require("./index.js");
 
-pb.api.setApiKey("b7e57daf2b782bee22f05e38a1823c3a");
+pb.api.setApiKey("YOUR API KEY HERE");
 pb.api.setTest(true);
 
 var showStore = function(){
@@ -119,7 +119,7 @@ var submitCredentialsNormal = function() {
 
 var catalogues = function() {
 	console.log("======CATALOGUES");
-	pb.action.catalogues(function(err,res){
+	pb.action.catalogues( function(err,res){
 		if(err){
 			console.log("===error catalogues");
 			console.log(err);
