@@ -20,7 +20,7 @@
     "webpack": "^1.12.9"
   },
   "dependencies": {
-    "fiatjaf/superagent": "^1.2.0",
+    "superagent": "^2.0.0",
     "redux": "^3.5.2",
     "superagent": "^2.0.0",
     "webpack-clear-require": "^1.0.1",

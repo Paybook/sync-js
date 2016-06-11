@@ -136,7 +136,7 @@ api.createUser = function(name, id_external, response){
 	};
 	apiPost("/users", data, response);
 };
-api.getUsers = function(response){
+api.getUsers = function(options, response){
 	apiGet("/users", {}, response);
 };
 
@@ -154,7 +154,7 @@ api.createSession = function(id_user, response){
 };
 api.login = api.createSession;
 
-api.validateSession = function(token, response){
+api.verifySession = function(token, response){
 	apiGet("/sessions/"+token+"/verify", {}, response);
 };
 api.deleteSession = function(token, response){
@@ -189,7 +189,7 @@ api.submitTwofa = function(url, token, id_site, twofa, response){
 api.getCredentials = function(token, response){
 	apiGet("/credentials", {token: token}, response);
 };
-api.deleteCredentials = function(id_credentials, response){
+api.deleteCredentials = function(token, id_credentials, response){
 	apiDelete("/credentials/"+id_credentials, {}, response);
 };
 
@@ -259,20 +259,20 @@ api.getAttahcmentExtra = function(token, id_attachment, response){
 
 
 //=====================CATALOGS
-api.cataloguesAccountTypes = function(response){
-	apiGet("/catalogues/account_types", {}, response);
+api.cataloguesAccountTypes = function(token, response){
+	apiGet("/catalogues/account_types", {token: token}, response);
 };
-api.cataloguesAttachmentTypes = function(response){
-	apiGet("/catalogues/attachment_types", {}, response);
+api.cataloguesAttachmentTypes = function(token, response){
+	apiGet("/catalogues/attachment_types", {token: token}, response);
 };
-api.cataloguesAccountCountries = function(response){
-	apiGet("/catalogues/countries", {}, response);
+api.cataloguesAccountCountries = function(token, response){
+	apiGet("/catalogues/countries", {token: token}, response);
 };
-api.cataloguesSites = function(response){
-	apiGet("/catalogues/sites", {}, response);
+api.cataloguesSites = function(token, response){
+	apiGet("/catalogues/sites", {token: token}, response);
 };
-api.cataloguesSiteOrganizations = function(response){
-	apiGet("/catalogues/site_organizations", {}, response);
+api.cataloguesSiteOrganizations = function(token, response){
+	apiGet("/catalogues/site_organizations", {token: token}, response);
 };
 
 module.exports = api;
