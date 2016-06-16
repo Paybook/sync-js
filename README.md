@@ -13,7 +13,7 @@ npm install paybook
 First you need to import paybook and set the api key.
 ```js
 var pb = require("paybook");
-pb.api.setApiKey("b7e57daf2b782bee22f05e38a1823c3a");
+pb.api.setApiKey("YOUR_API_KEY_HERE");
 // You can set the test paybook enviroment to use dummy banks
 pb.api.setTest(true); 
 ```

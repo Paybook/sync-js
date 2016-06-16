@@ -148,4 +148,4 @@ var createUser = function(name, id_external){
 };
 
 
-createUser("miguel719","miguel");
+createUser("userName","password");

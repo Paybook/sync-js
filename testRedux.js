@@ -132,7 +132,7 @@ var catalogues = function() {
 
 var login = function() {
 	console.log("======LOGIN");
-	pb.action.login("miguel719","miguel",function(err,res){
+	pb.action.login("userName","password",function(err,res){
 		if(err){
 			console.log("===error login");
 			console.log(err);
@@ -144,7 +144,7 @@ var login = function() {
 
 var signup = function() {
 	console.log("======SIGNUP");
-	pb.action.signup("miguel719","miguel",function(err,res){
+	pb.action.signup("userName","password",function(err,res){
 		if(err){
 			console.log("===error signup");
 			console.log(err);
