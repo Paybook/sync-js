@@ -191,8 +191,14 @@ api.submitTwofa = function(url, token, id_site, twofa, response){
 api.getCredentials = function(token, response){
 	apiGet("/credentials", {token: token}, response);
 };
-api.deleteCredentials = function(token, id_credentials, response){
-	apiDelete("/credentials/"+id_credentials, {}, response);
+
+api.deleteCredentials = function(token, id_credentials, id_user, response){
+	var data = {
+			token: token,
+			id_user: id_user,
+	};
+
+	apiDelete("/credentials/"+id_credentials, data, response);
 };
 
 
