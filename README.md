@@ -63,7 +63,7 @@ This the list of api methods to simplify the use of the [Paybook Sync Rest API](
 
 | Action         | REST API ENDPOINT                                 | SDK METHOD                                  |
 | -------------- | ---------------------------------------- | ------------------------------------ |
-| Creates or updates credentials | POST https://sync.paybook.com/v1/credentials | ```credential(token,id_site,credentials_data, callback)```          |
+| Creates or updates credentials | POST https://sync.paybook.com/v1/credentials | ```credentials(token,id_site,credentials_data, callback)```          |
 | Deletes credentials | DELETE https://sync.paybook.com/v1/credentials/:id_credential | ```deleteCredentials(token, id_credential, callback)```          |
 | Request register credentials | GET https://sync.paybook.com/v1/credentials | ```getCredentials(session, callback)```          |
 
