@@ -26,7 +26,7 @@
     "webpack-clear-require": "^1.0.1",
     "webpack-node-externals": "^1.2.0",
     "websocket": "^1.0.23",
-    "ws": "^1.1.0",
+    "ws": "^3.3.1",
     "ws-share": "^2.0.2"
   }
 }
