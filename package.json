@@ -4,11 +4,11 @@
   "description": "Sync library for Node.js",
   "main": "src/sync.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node unit_tests.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/donmikeazul/sync-code-samples.git"
+    "url": "git+https://github.com/Paybook/sync-js"
   },
   "keywords": [
     "sync",
@@ -18,11 +18,11 @@
     "src"
   ],
   "author": "aldo.escobar@paybook.com",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/donmikeazul/sync-code-samples/issues"
+    "url": "https://github.com/Paybook/sync-js"
   },
-  "homepage": "https://github.com/donmikeazul/sync-code-samples#readme",
+  "homepage": "https://github.com/Paybook/sync-js#readme",
   "dependencies": {
     "request": "2.88.0",
     "request-promise": "4.2.4"
