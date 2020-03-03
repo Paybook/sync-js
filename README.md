@@ -90,6 +90,9 @@ This the list of api methods to simplify the use of the [Paybook Sync Rest API](
 | Request the number of attachments | GET https://sync.paybook.com/v1/attachments/counts | ```agetAttachmentCount(session,options, callback)```          |
 
 
+---
+_Made with :blue_heart: by Paybook family._
+
 
 
 
