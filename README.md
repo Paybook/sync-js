@@ -207,6 +207,8 @@ Puedes ver más acerca de cada uno en [recursos y ejemplos](#recursos-y-ejemplos
 En este apartado veremos un ejemplo del flujo ideal para obtener la información desde el API de Paybook Sync, aunque las posibilidades son muchas, este es el caso ideal para hacernos con la información.
 
 ![data-flow-img][data-flow-img]
+> Para este punto, si decidiste hacer uso del [Sync Widget](#sync-widget), te habrás ahorrado los pasos 2, 3 y 4.
+
 _Los pasos en el diagrama son los siguientes:_
 
 1. Crea un usuario. ([ver ejemplo](#crear-un-usuario))
