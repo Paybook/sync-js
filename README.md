@@ -77,12 +77,33 @@ Prácticamente podemos visualizar al API key como el elemento raíz del modelo, 
 
 ![sync-model-image][sync-model-image]
 
+> Hay que mencionar la diferencia entre un usuario de Paybook Sync (usted, el developer) y un usuario del API key: Por un usuario de Paybook Sync, hay un API key y por cada API key puede tener N usuarios.
+
+
+### Users (Usuarios)
+Los usuarios son segmentaciones lógicas para los usuarios finales. Una mejor práctica es registrar usuarios para tener su información agrupada y control en ambos extremos. Es necesario tener al menos un usuario registrado para crear credenciales.
+
+### Catalogs/Sites (Catálogos)
+Los catálogos son colecciones de endpoints que son importantes para la clasificación de otros endpoints. Dentro de estos se encuentran los sitios que nos permite consultar los sitios financieros disponibles para sincronizar a través de Paybook Sync.
+
+### Credentials (Credenciales)
+Las credenciales se refieren a la información de terceras personas que se necesita para autorizar el acceso a un sitio de terceros. Las credenciales se encriptan al momento de introducirse y no están disponibles en ningún endpoint. La información que se extrae de este endpoint, será sólo complementaria.
+
+### Accounts (Cuentas)
+Las cuentas son repositorios de transacciones de usuarios finales, que normalmente se clasifican por alguna característica como tipo y/o número de cuenta. La cuenta y la información de las transacciones pueden recuperarse desde sitios de terceros y se actualizan hasta tres veces al día.
+
+### Transactions (Transacciones)
+Las transacciones son los movimientos financieros que están relacionados con una cuenta, y reflejan el ingreso o egreso que el usuario final tiene en determinado sitio. La cantidad de información histórica que Sync puede recuperar, varía dependiendo de la fuente pero, por lo general, estarán disponibles las transacciones de 60 días.
+
+### Attachments (Archivos Adjuntos)
+Los archivos adjuntos son archivos que están relacionados con las cuentas o las transacciones. La disponibilidad y el tipo de archivo adjunto varía de acuerdo a la fuente.
+
+
+#### En Resumen:
 A partir de los usuarios podemos crear credenciales, las cuales son únicas por cada usuario e institución.
 Una vez creada una credencial automáticamente se crea una cuenta correspondiente, esto permite manejar fácilmente diferentes cuentas de un mismo usuario de una misma institución.
 
 Por último pero no menos importante, se encuentran las transacciones que dependen de su respectiva cuenta, algunas transacciones vienen con un documento el cual llamaremos Attachments o mejor dicho _“documentos adjuntos”_, los cuales son el último recurso en el modelo de de información de Paybook Sync.
-
-Para más información sobre cada recurso consulta el apartado de [Recursos y ejemplos](#recursos-y-ejemplos).
 
 ## Implementación
 
@@ -171,7 +192,6 @@ _Los pasos en el diagrama son los siguientes:_
 Puedes consultar más información acerca de los parametros de cada recurso en la [documentación oficial de paybook][sync-doc-endpoint].
 
 ### Usuarios
-Los usuarios son segmentaciones lógicas para los usuarios finales. Una mejor práctica es registrar usuarios para tener su información agrupada y control en ambos extremos. Es necesario tener al menos un usuario registrado para crear credenciales.
 
 <table>
 <thead>
@@ -351,7 +371,7 @@ Devuelve:
 ```
 
 ### Catálogos
-Los catálogos son colecciones de endpoints que son importantes para la clasificación de otros endpoints.
+
 
 <table>
 <thead>
@@ -550,7 +570,6 @@ Devuelve:
 ```
 
 ### Credenciales
-Las credenciales se refieren a la información de terceras personas que se necesita para autorizar el acceso a un sitio de terceros. Las credenciales se encriptan al momento de introducirse y no están disponibles en ningún endpoint. La información que se extrae de este endpoint, será sólo complementaria.
 
 <table>
 <thead>
@@ -960,9 +979,6 @@ Devuelve:
 > Puedes consultar el significado de cada código [aquí][sync-doc-code.response].
 
 ### Cuentas
-
-Las cuentas son repositorios de transacciones de usuarios finales, que normalmente se clasifican por alguna característica como tipo y/o número de cuenta. La cuenta y la información de las transacciones pueden recuperarse desde sitios de terceros y se actualizan hasta tres veces al día.
-
 <table>
 <thead>
   <tr>
@@ -1043,8 +1059,6 @@ Devuelve:
 ```
 
 ### Transacciones
-Las transacciones son los movimientos financieros que están relacionados con una cuenta, y reflejan el ingreso o egreso que el usuario final tiene en determinado sitio. La cantidad de información histórica que Sync puede recuperar, varía dependiendo de la fuente pero, por lo general, estarán disponibles las transacciones de 60 días.
-
 <table>
 <thead>
   <tr>
@@ -1357,9 +1371,6 @@ Devuelve:
 ```
 
 ### Archivos adjuntos (Attachments)
-
-Los archivos adjuntos son archivos que están relacionados con las cuentas o las transacciones. La disponibilidad y el tipo de archivo adjunto varía de acuerdo a la fuente.
-
 <table>
 <thead>
   <tr>
@@ -1680,5 +1691,5 @@ _Made with :blue_heart: by Paybook family._
 [npm]: <https://www.npmjs.com/>
 
 [logo]: ./images/syncLogo.svg
-[sync-model-image]: ./../images/resourceModel.svg
-[data-flow-img]: ./../images/dataFlow.svg
+[sync-model-image]: ./images/resourceModel.svg
+[data-flow-img]: ./images/dataFlow.svg
