@@ -168,9 +168,9 @@ let response = await Sync.run(
 
 En el API de Paybook Sync hay dos elementos de autenticación: **_API KEY_** & **_TOKEN_**.
 
-- **API KEY:** Es la llave maestra para cada cuenta creada de en Paybook Sync como se muestra en el apartado de [requerimientos](#requerimientos).
+- **API KEY:**  Es la llave maestra que se le otorga a un desarrollador cuando se registra en Paybook Sync, como se muestra en el apartado de [requerimientos](#requerimientos).
 
-- **Token:** La diferencia particular es que un _Token de sesión_ va ligado directamente a un usuario y únicamente puede consultar o actualizar la información de éste (a diferencia de la API key con la que puedes consultar todo). Prácticamente es una combinación de tu API key y un usuario.
+- **Token:** El token es una llave de operación volátil, caduca luego de cinco minutos de inactividad, su alcance se limita a nivel User y fue diseñada para realizar operaciones a nivel FrontEnd. Va ligado directamente a un usuario y únicamente puede consultar o actualizar la información de éste (a diferencia de la API key con la que puedes consultar todo). Prácticamente es una combinación de tu API key y un usuario.
 
 > Por razones de seguridad se recomienda ampliamente utilizar el Token ya que así limitas el acceso de información solamente al usuario correspondiente.
 
