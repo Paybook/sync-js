@@ -14,6 +14,9 @@
 - [Requerimientos](#requerimientos)    
 - [Modelo de información](#modelo-de-información)      
 - [Implementación](#implementación)
+  - [Webhook](#webhook)
+  - [Sync Widget](#sync-widget)
+  - [La librería](#la-librería)
 - [Autenticación](#autenticación)        
   - [Obtener un Token de sesión:](#obtener-un-token-de-sesión)        
 - [Flujo de Información](#flujo-de-información)        
@@ -27,7 +30,6 @@
   - [Catálogos](#catálogos)            
     - [Catálogos de Instituciones](#catálogos-de-instituciones)        
   - [Credenciales](#credenciales) 
-    - [Acerca de Sync Widget](#acerca-de-sync-widget)
     - [Credenciales normales](#credenciales-normales) 
     - [Crear credenciales TWOFA](#credenciales-twofa)
     - [Consultar credenciales](#consultar-credenciales)
@@ -64,11 +66,15 @@
   ```
   api_key = 7767a4a04f990e9231bafc949e8ca08a
   ```
- Al crear tu cuenta se te proporcionan dos API Keys: ***Producción*** & ***Sandbox***. Las cuales tienen el mismo proposito, solamente que ***Sandbox***  nos permiten implementar **Paybook Sync** rápidamente sin la necesidad de tener credenciales reales de bancos o el SAT.
+ Al crear tu cuenta se te proporcionan dos API Keys: ***Producción*** & ***Sandbox***. Las cuales tienen el mismo proposito, ambas nos permiten implementar **Paybook Sync**, pero ***Sandbox*** nos permite hacerlo sin la necesidad de tener credenciales reales de bancos o el SAT.
 
   Este API key lo podemos visualizar como la contraseña o llave de acceso a los servicios de [Paybook Sync]. Solamente a través de ella podremos empezar a interactuar con las instituciones que sincronicemos.
 
 > ***Nota:*** Pasar de una API key a otra es tan sensillo como escribir la nueva API key correspondiente.
+
+2.**Webhook**
+
+3.**Libreria correspondiente**
 
 ## Modelo de información
 
@@ -107,11 +113,35 @@ Por último pero no menos importante, se encuentran las transacciones que depend
 
 ## Implementación
 
+### Webhook 
+Un Webhook es una devolución de llamada HTTP a un URL especificado. Ellos se activan cada vez que se actualizan los datos de sincronización para ayudarle a mantenerse al día con los últimos cambios.
+
+![alt](https://media.giphy.com/media/l2JehPbx5eIFLqAms/giphy.gif)
+
+La ventaja principal es que te permite recibir las últimas actualizaciones de credenciales, transacciones y attachments directamente en tu aplicación sin necesidad de estar preguntando constantemente por ellas.
+
+### Sync Widget
+
+El widget de Sync se puede usar para **crear**, **actualizar** y **activar** la sincronización de credenciales de forma sencilla con pocas líneas de código desde tu ***Front-end***. Visita el [repositorio oficial][sync-widget-repo] para saber más, anda, no te arrepentiras.
+<figure class="image">
+  <img src="https://drive.google.com/uc?export=view&id=1Ll-fQQodIEnlx9ys0U4hn67y8w_EjNlX"/>
+</figure>
+
+La ventaja principal es que te brinda una poderosa interfaz que te permite ahorrar pasos en la implementación. 
+
+### La librería 
 La librería incluye los metodos:
 1. `Sync.auth()`
   >_Nota: Para realizar la autenticación es necesario tener creado un usuario, de donde se obtiene el **id_user**, vease este [ejemplo](#crear-un-usuario)._
 2. `Sync.run()` _Vease el apartado de [recursos](#recursos-y-ejemplos) disponibles_
 
+Y hace uso los siguientes métodos HTTP:
+Metodo |
+---------|
+GET |
+POST |
+PUT | 
+DELETE | 
 
 Por ejemplo:
 ```javascript
@@ -154,7 +184,7 @@ Recurso | Auth |
  Credentials | Token
  Accounts | Token
  Transactions | Token
- Atachments | Token
+ Attachments | Token
 
 Puedes ver más acerca de cada uno en [recursos y ejemplos](#recursos-y-ejemplos).
 
@@ -635,13 +665,6 @@ Devuelve:
 > Puedes consultar más acerca de los códigos de respuesta y su significado [aquí][sync-doc-code.response].
 
 Cada institución tiene sus propias credenciales, algunas instituciones requieren un paso de seguridad _"Two factor authentication"_ o _"TWOFA"_; Los siguientes ejemplos cubren ambos casos.
-
-### Acerca de Sync Widget
-
-El widget de Sync se puede usar para **crear**, **actualizar** y **activar** la sincronización de credenciales de forma sencilla con pocas líneas de código, visita el [repositorio oficial][sync-widget-repo] para saber más, anda, no te arrepentiras.
-<figure class="image">
-  <img src="https://drive.google.com/uc?export=view&id=1Ll-fQQodIEnlx9ys0U4hn67y8w_EjNlX"/>
-</figure>
 
 #### Credenciales normales
 **_Normal_**: Credenciales que sólo requieren **_user_** y **_password_**.
@@ -1229,8 +1252,6 @@ Devuelve:
 ```
 
 ### Webhooks
-Un Webhook es una devolución de llamada HTTP a un URL especificado. Ellos se activan cada vez que se actualizan los datos de sincronización para ayudarle a mantenerse al día con los últimos cambios.
-
 <table>
 <thead>
   <tr>
