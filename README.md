@@ -145,8 +145,9 @@ let response = await Sync.run(
 ```
 
 Y hace uso los siguientes métodos de HTTP:
+
 Metodo | Acción
----------| -----
+---| ---|
 GET | Consultar
 POST | Crear
 PUT |  Actualizar
