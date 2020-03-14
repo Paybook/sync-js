@@ -14,9 +14,9 @@
 - [Requerimientos](#requerimientos)    
 - [Modelo de información](#modelo-de-información)      
 - [Implementación](#implementación)
-  - [Webhook](#webhook)
-  - [Sync Widget](#sync-widget)
   - [La librería](#la-librería)
+  - [Implementación de un Webhook ](#implementación-de-un-Webhook )
+  - [Sync Widget](#sync-widget)
 - [Autenticación](#autenticación)        
   - [Obtener un Token de sesión:](#obtener-un-token-de-sesión)        
 - [Flujo de Información](#flujo-de-información)        
@@ -74,7 +74,7 @@
 
 2.**Webhook**
 
-3.**Libreria correspondiente**
+_Opcional_ pero altamente recomendable para lograr una integración completa de las funcionalidades de Paybook Sync.
 
 ## Modelo de información
 
@@ -83,25 +83,26 @@ Prácticamente podemos visualizar al API key como el elemento raíz del modelo, 
 
 ![sync-model-image][sync-model-image]
 
-> Hay que mencionar la diferencia entre un usuario de Paybook Sync (usted, el developer) y un usuario del API key: Por un usuario de Paybook Sync, hay un API key y por cada API key puede tener N usuarios.
+> Hay que mencionar la diferencia entre un usuario de Paybook Sync (usted, el developer) y un usuario del API key: Por cada usuario de Paybook Sync, hay un API key y cada API key puede tener N usuarios.
 
 
-### Users (Usuarios)
-Los usuarios son segmentaciones lógicas para los usuarios finales. Una mejor práctica es registrar usuarios para tener su información agrupada y control en ambos extremos. Es necesario tener al menos un usuario registrado para crear credenciales.
+### Users ([Usuarios](#usuarios))
+Los usuarios son segmentaciones lógicas para los usuarios finales. Una mejor práctica es registrar usuarios para tener su información agrupada y control en ambos extremos. 
 
-### Catalogs/Sites (Catálogos)
+### Catalogs/Sites ([Catálogos](#catálogos))
 Los catálogos son colecciones de endpoints que son importantes para la clasificación de otros endpoints. Dentro de estos se encuentran los sitios que nos permite consultar los sitios financieros disponibles para sincronizar a través de Paybook Sync.
 
-### Credentials (Credenciales)
+### Credentials ([Credenciales](#credenciales))
 Las credenciales se refieren a la información de terceras personas que se necesita para autorizar el acceso a un sitio de terceros. Las credenciales se encriptan al momento de introducirse y no están disponibles en ningún endpoint. La información que se extrae de este endpoint, será sólo complementaria.
+>Es necesario tener al menos un usuario registrado para crear credenciales.
 
-### Accounts (Cuentas)
+### Accounts ([Cuentas](#cuentas))
 Las cuentas son repositorios de transacciones de usuarios finales, que normalmente se clasifican por alguna característica como tipo y/o número de cuenta. La cuenta y la información de las transacciones pueden recuperarse desde sitios de terceros y se actualizan hasta tres veces al día.
 
-### Transactions (Transacciones)
+### Transactions ([Transacciones](#transacciones))
 Las transacciones son los movimientos financieros que están relacionados con una cuenta, y reflejan el ingreso o egreso que el usuario final tiene en determinado sitio. La cantidad de información histórica que Sync puede recuperar, varía dependiendo de la fuente pero, por lo general, estarán disponibles las transacciones de 60 días.
 
-### Attachments (Archivos Adjuntos)
+### Attachments ([Archivos Adjuntos](#archivos-adjuntos-attachments))
 Los archivos adjuntos son archivos que están relacionados con las cuentas o las transacciones. La disponibilidad y el tipo de archivo adjunto varía de acuerdo a la fuente.
 
 
@@ -113,47 +114,27 @@ Por último pero no menos importante, se encuentran las transacciones que depend
 
 ## Implementación
 
-### Webhook 
-Un Webhook es una devolución de llamada HTTP a un URL especificado. Ellos se activan cada vez que se actualizan los datos de sincronización para ayudarle a mantenerse al día con los últimos cambios.
-
-![alt](https://media.giphy.com/media/l2JehPbx5eIFLqAms/giphy.gif)
-
-La ventaja principal es que te permite recibir las últimas actualizaciones de credenciales, transacciones y attachments directamente en tu aplicación sin necesidad de estar preguntando constantemente por ellas.
-
-### Sync Widget
-
-El widget de Sync se puede usar para **crear**, **actualizar** y **activar** la sincronización de credenciales de forma sencilla con pocas líneas de código desde tu ***Front-end***. Visita el [repositorio oficial][sync-widget-repo] para saber más, anda, no te arrepentiras.
-<figure class="image">
-  <img src="https://drive.google.com/uc?export=view&id=1Ll-fQQodIEnlx9ys0U4hn67y8w_EjNlX"/>
-</figure>
-
-La ventaja principal es que te brinda una poderosa interfaz que te permite ahorrar pasos en la implementación. 
-
-### La librería 
-La librería incluye los metodos:
-1. `Sync.auth()`
-  >_Nota: Para realizar la autenticación es necesario tener creado un usuario, de donde se obtiene el **id_user**, vease este [ejemplo](#crear-un-usuario)._
-2. `Sync.run()` _Vease el apartado de [recursos](#recursos-y-ejemplos) disponibles_
-
-Y hace uso los siguientes métodos HTTP:
-Metodo |
----------|
-GET |
-POST |
-PUT | 
-DELETE | 
-
-Por ejemplo:
+### La librería
+Incluye la librería y declara tu API Key.
 ```javascript
 const Sync = require("@paybook/paybook-sync");
 const API_KEY = TU_API_KEY;
+```
+> **_¡Importante!:_** No escribas tu API KEY directamente en tu código o en texto plano, ya que es una mala práctica de seguridad, te recomiendo que revises la [libreria Dotenv][dotenv].
 
+La librería incluye los métodos:
+* `Sync.auth()`
+```javascript
 // Crear una sesión para un usuario
 let token = await Sync.auth(
   {api_key: API_KEY}, // Tu API KEY
   {id_user: id_user} // ID de usuario
 );
+```
+  >_**Nota**: Para realizar la autenticación es necesario tener creado un usuario, de donde se obtiene el **id_user**, vease este [ejemplo](#crear-un-usuario)._
+* `Sync.run()`
 
+```javascript
 // Consumir un recurso de Sync
 let response = await Sync.run(
   {token: token}, // Autenticación
@@ -162,7 +143,59 @@ let response = await Sync.run(
   'GET' // Método HTTP
 );
 ```
-**_¡Importante!:_** No escribas tu API KEY directamente en tu código o en texto plano, ya que es una mala práctica de seguridad, te recomiendo que revises [la libreria Dotenv][dotenv].
+
+Y hace uso los siguientes métodos de HTTP:
+Metodo | Acción
+---------| -----
+GET | Consultar
+POST | Crear
+PUT |  Actualizar
+DELETE | Eliminar
+
+Dependiendo del recurso y la acción a realizar, será el método de la librería, el método de HTTP y el elemento de autenticación (se explica en la sección de [autenticación](#autenticación)) a usar.
+
+>Puedes ver más acerca de cada uno en [recursos y ejemplos](#recursos-y-ejemplos).
+
+### Implementación de un Webhook 
+
+Un **Webhook** es una devolución de llamada HTTP a un URL especificado. Ellos se activan cada vez que se actualizan los datos de sincronización para ayudarte a mantenerte al día con los últimos cambios en la información.
+
+La ventaja principal es que te permite recibir las últimas actualizaciones de credenciales, transacciones y attachments directamente en tu aplicación sin necesidad de estar preguntando constantemente por ellas.
+
+![alt](https://media.giphy.com/media/l2JehPbx5eIFLqAms/giphy.gif)
+
+Para fines prácticos de desarrollo usaremos el servicio de [ngrok][ngrok], el cual nos permite crear URLs públicas para exponer nuestro servidor local a través de internet.
+Puedes consultar cómo instalarlo en su [página de descargas](https://ngrok.com/download).
+
+Ahora crearemos un servidor sencillo con [Nodejs][nodejs] y [Expressjs][express], creando un archivo al que llamaremos `server.js` e incluiremos el siguiente código:
+```javascript
+const express = require('express');
+const app = express();
+
+app.get('/webhook', (req, res) => {
+    console.log('Recibi una notificación desde el webhook')
+    res.send('Notificación de webhook recibida');
+});
+
+app.listen(3000, () => console.log('Webhook endpoint listening on port 3000!'));
+```
+
+Habiendo terminado lo anterior, instalamos express con el comando `npm i express` y luego corremos nuestro servidor con el comando `node index.js`
+
+Por último ejecutamos ngrok con el comando: `<path-to>/ngrok http 3000` y tendremos nuestro servidor listo escuchando por actualizaciones del webhook.
+
+La URL que nos proporcione ngrok es la misma que tendrás que mandar cuando creas un webhook como en este [ejemplo](#crear-webhook).
+
+
+### Sync Widget
+
+El widget de Sync se puede usar para **crear**, **actualizar** y **activar** la sincronización de credenciales de forma sencilla con pocas líneas de código desde tu ***Front-end***. Visita el [repositorio oficial][sync-widget-repo] para implementarlo, ampliamente recomendado.
+
+<figure class="image">
+  <img src="https://drive.google.com/uc?export=view&id=1Ll-fQQodIEnlx9ys0U4hn67y8w_EjNlX"/>
+</figure>
+
+La ventaja principal es que te brinda una poderosa interfaz que te permite ahorrar pasos en la implementación. 
 
 ## Autenticación
 
@@ -186,8 +219,6 @@ Recurso | Auth |
  Transactions | Token
  Attachments | Token
 
-Puedes ver más acerca de cada uno en [recursos y ejemplos](#recursos-y-ejemplos).
-
 ### Obtener un Token de sesión:
 ```javascript
   let token = await Sync.auth(
@@ -201,6 +232,7 @@ Puedes ver más acerca de cada uno en [recursos y ejemplos](#recursos-y-ejemplos
   console.log(token);
   // #Imprime: { token: "d5b33dcf996ac34fd2fa56782d72bff6"}
 ```
+>Puedes ver más acerca de cada uno en [recursos y ejemplos](#recursos-y-ejemplos).
 
 ## Flujo de Información
 
@@ -1312,7 +1344,7 @@ Devuelve:
 #### Crear Webhook
 
 ```javascript
-const webhook_endpoint = 'http://mydomain.com/algun_endpoint'; // Tu endpoint donde recibiras la devolución de llamada
+const webhook_endpoint = 'http://mydomain.ngrok.io/webhook'; // Tu endpoint donde recibiras la devolución de llamada
 let response = Sync.run(
   {api_key: API_KEY}, 
   '/webhooks', 
@@ -1711,8 +1743,9 @@ _Made with :blue_heart: by Paybook family._
 [request]: <https://www.npmjs.com/package/request>
 [request-promise]: <https://www.npmjs.com/package/request-promise>
 [nodejs]: <https://nodejs.org/>
+[express]: <https://expressjs.com/>
 [npm]: <https://www.npmjs.com/>
-
+[ngrok]: <https://ngrok.com/>
 [logo]: ./images/syncLogo.svg
 [sync-model-image]: ./images/resourceModel.svg
 [data-flow-img]: ./images/dataFlow.svg
