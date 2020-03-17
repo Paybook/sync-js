@@ -1748,6 +1748,6 @@ _Made with :blue_heart: by Paybook family._
 [express]: <https://expressjs.com/>
 [npm]: <https://www.npmjs.com/>
 [ngrok]: <https://ngrok.com/>
-[logo]: ./images/syncLogo.svg
-[sync-model-image]: ./images/resourceModel.svg
-[data-flow-img]: <https://raw.githubusercontent.com/Paybook/sync-js/a12a50d63daf63f264c717d7ec27553c9e375f13/images/dataFlow.svg?sanitize=true>
+[logo]: <https://raw.githubusercontent.com/Paybook/sync-js/master/images/syncLogo.svg?sanitize=true>
+[sync-model-image]: <https://raw.githubusercontent.com/Paybook/sync-js/master/images/resourceModel.svg?sanitize=true>
+[data-flow-img]: <https://raw.githubusercontent.com/Paybook/sync-js/master/images/dataFlow.svg?sanitize=true>
