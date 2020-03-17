@@ -241,9 +241,6 @@ En este apartado veremos un ejemplo del flujo ideal para obtener la información
 
 ![data-flow-img][data-flow-img]
 
-![data-flow-img](https://raw.githubusercontent.com/Paybook/sync-js/a12a50d63daf63f264c717d7ec27553c9e375f13/images/dataFlow.svg)
-
-
 > Para este punto, si decidiste hacer uso del [Sync Widget](#sync-widget), te habrás ahorrado los pasos 2, 3 y 4.
 
 _Los pasos en el diagrama son los siguientes:_
@@ -1753,4 +1750,4 @@ _Made with :blue_heart: by Paybook family._
 [ngrok]: <https://ngrok.com/>
 [logo]: ./images/syncLogo.svg
 [sync-model-image]: ./images/resourceModel.svg
-[data-flow-img]: <https://github.com/Paybook/sync-js/blob/master/images/dataFlow.svg?raw=true>
+[data-flow-img]: <https://raw.githubusercontent.com/Paybook/sync-js/a12a50d63daf63f264c717d7ec27553c9e375f13/images/dataFlow.svg?sanitize=true>
