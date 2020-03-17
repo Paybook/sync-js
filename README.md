@@ -117,7 +117,7 @@ Por último pero no menos importante, se encuentran las transacciones que depend
 ### La librería
 Incluye la librería y declara tu API Key.
 ```javascript
-const Sync = require("@paybook/paybook-sync");
+const Sync = require("@paybook/sync-js");
 const API_KEY = TU_API_KEY;
 ```
 > **_¡Importante!:_** No escribas tu API KEY directamente en tu código o en texto plano, ya que es una mala práctica de seguridad, te recomiendo que revises la [libreria Dotenv][dotenv].
