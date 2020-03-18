@@ -1736,8 +1736,8 @@ _Made with :blue_heart: by Paybook family._
 
 [Paybook Sync]: <https://www.paybook.com/sync/es/>
 [sync-doc-intro]: <https://www.paybook.com/sync/es/docs/intro>
-[sync-doc-endpoint]: <https://www.paybook.com/sync/es/docs#es&endpoints.users>
-[sync-doc-code.response]: <https://www.paybook.com/sync/es/docs#es&response.code>
+[sync-doc-endpoint]: <https://www.paybook.com/w/es/sync/site/docs/api?topics=endpoints>
+[sync-doc-code.response]: <https://www.paybook.com/w/es/sync/site/docs/api?topics=response&topics=code>
 [sync-postman-doc]: <https://github.com/Paybook/sync-rest>
 [sync-widget-repo]: <https://github.com/Paybook/sync-widget>
 
