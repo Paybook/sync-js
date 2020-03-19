@@ -173,7 +173,7 @@ Ahora crearemos un servidor sencillo con [Nodejs][nodejs] y [Expressjs][express]
 const express = require('express');
 const app = express();
 
-app.get('/webhook', (req, res) => {
+app.post('/webhook', (req, res) => {
     console.log('Recibi una notificación desde el webhook')
     res.send('Notificación de webhook recibida');
 });
