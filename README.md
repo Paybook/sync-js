@@ -181,7 +181,7 @@ app.get('/webhook', (req, res) => {
 app.listen(3000, () => console.log('Webhook endpoint listening on port 3000!'));
 ```
 
-Habiendo terminado lo anterior, instalamos express con el comando `npm i express` y luego corremos nuestro servidor con el comando `node index.js`
+Habiendo terminado lo anterior, instalamos express con el comando `npm i express` y luego corremos nuestro servidor con el comando `node server.js`
 
 Por último ejecutamos ngrok con el comando: `<path-to>/ngrok http 3000` y tendremos nuestro servidor listo escuchando por actualizaciones del webhook.
 
