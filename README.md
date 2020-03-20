@@ -173,7 +173,7 @@ Ahora crearemos un servidor sencillo con [Nodejs][nodejs] y [Expressjs][express]
 const express = require('express');
 const app = express();
 
-app.get('/webhook', (req, res) => {
+app.post('/webhook', (req, res) => {
     console.log('Recibi una notificación desde el webhook')
     res.send('Notificación de webhook recibida');
 });
@@ -181,7 +181,7 @@ app.get('/webhook', (req, res) => {
 app.listen(3000, () => console.log('Webhook endpoint listening on port 3000!'));
 ```
 
-Habiendo terminado lo anterior, instalamos express con el comando `npm i express` y luego corremos nuestro servidor con el comando `node index.js`
+Habiendo terminado lo anterior, instalamos express con el comando `npm i express` y luego corremos nuestro servidor con el comando `node server.js`
 
 Por último ejecutamos ngrok con el comando: `<path-to>/ngrok http 3000` y tendremos nuestro servidor listo escuchando por actualizaciones del webhook.
 
