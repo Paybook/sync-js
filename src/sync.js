@@ -63,7 +63,7 @@ exports.run = function run(AUTH, route, payload, method) {
             options['headers'] = headers;
             // AWAIT RESPONSE 
             let result = await request(options);
-            if(!result.startsWith('<?xml')) {
+            if(!result.includes('<?xml')) {
                 result = JSON.parse(result);
                 // RESOLVE RESPONSE
                 let response = (Array.isArray(result.response) || typeof result.response !== "boolean") ? result.response : result;
