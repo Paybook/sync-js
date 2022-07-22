@@ -32,6 +32,7 @@
     "dotenv": "8.2.0",
     "eslint": "5.16.0",
     "pretty-js": "0.2.1",
-    "websocket": "^1.0.34"
+    "websocket": "^1.0.34",
+    "wtfnode": "^0.9.1"
   }
 }
