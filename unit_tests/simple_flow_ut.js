@@ -1,7 +1,13 @@
+/* 
+* TEST: General tests of the local package:
+* Simple credential flow
+* SAT Credential flow
+*/
+
 "use strict";
 require('dotenv').config();
 const prettyJs = require('pretty-js');
-const Sync = require('./src/sync');
+const Sync = require('../src/sync');
 const PG_APIKEY = process.env.PG_APIKEY;
 const WEBHOOK_URL = process.env.WEBHOOK_URL;
 

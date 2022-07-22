@@ -4,7 +4,8 @@
   "description": "Sync library for Node.js",
   "main": "src/sync.js",
   "scripts": {
-    "test": "node unit_tests.js"
+    "test:simple": "node unit_tests/simple_flow_ut.js",
+    "test:sat-ciec": "node unit_tests/sat_ciec_flow_ut.js"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
   "devDependencies": {
     "dotenv": "8.2.0",
     "eslint": "5.16.0",
-    "pretty-js": "0.2.1"
+    "pretty-js": "0.2.1",
+    "ws": "^8.8.1"
   }
 }
