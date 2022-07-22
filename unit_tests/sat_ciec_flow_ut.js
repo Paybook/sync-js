@@ -16,6 +16,7 @@
 
 "use strict";
 require('dotenv').config();
+const wtf = require('wtfnode');
 const WebSocketClient = require('websocket').client;
 const prettyJs = require('pretty-js');
 const Sync = require('../src/sync');
@@ -82,17 +83,11 @@ const main = async () => {
         //  Create credential status websocket
         let statusWsUrl = new_credential.ws;
         console.log("Create Socket:", statusWsUrl);
-        const client = new WebSocketClient();
         let connect = async (url) => {
+            const client = new WebSocketClient();
             const promise = new Promise((resolve, reject) => {
-                client.on('connectFailed', error => {
-                    console.log(error);
-                    reject(error);
-                });
-                client.on('connect', connection => {
-                    console.log('Por aquí pasó el diablo');
-                    resolve(connection);
-                });
+                client.on('connectFailed', error => reject(error));
+                client.on('connect', connection => resolve(connection));
             });
             client.connect(url);
             return promise;
@@ -105,15 +100,14 @@ const main = async () => {
                     console.log("Received: '" + message.utf8Data + "'");
                     let code = JSON.parse(message.utf8Data).code;
                     if(code >= 200 && code < 300) {
+                        connection.close();
                         resolve();
                     }
                 });
             });
         }
-
         await message();
-        client.abort();
-
+        
         // Delete user
         let response = await Sync.run(
             APIKEY,
@@ -122,7 +116,7 @@ const main = async () => {
             'DELETE'
         );
         console.log(`Response of /users/${id_user} via DELETE:`, response);
-        // process.exit();
+        wtf.dump();
     } catch (error) {
         console.trace(error.error, error.options || error);
         //console.trace(error);
