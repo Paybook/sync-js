@@ -23,10 +23,17 @@ const APIKEY = {api_key: process.env.APIKEY};
 const id_site = "5da784f1f9de2a06483abec1"  // SAT CIEC sandbox site
 var id_user, id_credential;
 
+const sleep = (ms) => {
+    return new Promise(resolve=>{
+        setTimeout(resolve,ms)
+    })
+}
+
 const main = async () => {
     console.log('SAT CIEC FLOW UNIT TEST RUN:');
     try {
         // List users
+        console.log('List users');
         let users = await Sync.run(
             APIKEY,
             '/users',
@@ -35,6 +42,7 @@ const main = async () => {
         );
         
         // Create user
+        console.log('Create user');
         let new_user = await Sync.run(
             APIKEY,
             '/users',
@@ -48,12 +56,14 @@ const main = async () => {
         id_user = new_user.id_user;
 
         // Create session token
+        console.log('Create session token');
         let token = await Sync.auth(
             APIKEY,
             {id_user: id_user}
         );
 
         // Create SAT CIEC sandbox credential
+        console.log('Crete credential');
         let payload = {
             id_site: id_site,
             credentials : {
@@ -71,27 +81,38 @@ const main = async () => {
         
         //  Create credential status websocket
         let statusWsUrl = new_credential.ws;
-        let client = new WebSocketClient();
-
-        client.on('connectFailed', function(error) {
-            console.log('Connect Error: ' + error.toString());
-            throw error;
-        });
-
-        client.on('connect', function(connection) {
-            console.log('WebSocket Client Connected');
-            connection.on('error', function(error) {
-                console.log("Connection Error: " + error.toString());
+        console.log("Create Socket:", statusWsUrl);
+        const client = new WebSocketClient();
+        let connect = async (url) => {
+            const promise = new Promise((resolve, reject) => {
+                client.on('connectFailed', error => {
+                    console.log(error);
+                    reject(error);
+                });
+                client.on('connect', connection => {
+                    console.log('Por aquí pasó el diablo');
+                    resolve(connection);
+                });
             });
-            connection.on('close', function() {
-                console.log('Connection Closed');
+            client.connect(url);
+            return promise;
+        }
+        let connection = await connect(statusWsUrl);
+        sleep(100);
+        const message = async () => {
+            return new Promise((resolve, reject) => {
+                connection.on('message', message => {
+                    console.log("Received: '" + message.utf8Data + "'");
+                    let code = JSON.parse(message.utf8Data).code;
+                    if(code >= 200 && code < 300) {
+                        resolve();
+                    }
+                });
             });
-            connection.on('message', function(message) {
-                console.log("Received: '" + message.utf8Data + "'");
-            });
-        });
+        }
 
-        await client.connect(statusWsUrl);
+        await message();
+        client.abort();
 
         // Delete user
         let response = await Sync.run(
@@ -101,17 +122,20 @@ const main = async () => {
             'DELETE'
         );
         console.log(`Response of /users/${id_user} via DELETE:`, response);
+        // process.exit();
     } catch (error) {
-        // console.trace(error.body || error);
-        console.trace(error);
+        console.trace(error.error, error.options || error);
+        //console.trace(error);
         // Delete user if error
-        let response = await Sync.run(
-            APIKEY,
-            `/users/${id_user}`,
-            null,
-            'DELETE'
-        );
-        prettyJs(JSON.stringify(response));
+        if(id_user) {
+            let response = await Sync.run(
+                APIKEY,
+                `/users/${id_user}`,
+                null,
+                'DELETE'
+            );
+            prettyJs(JSON.stringify(response));
+        }
         process.exit();
     }
 }
