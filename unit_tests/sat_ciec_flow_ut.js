@@ -24,7 +24,7 @@ const APIKEY = {api_key: process.env.APIKEY};
 const id_site = "5da784f1f9de2a06483abec1"  // SAT CIEC sandbox site
 var id_user, id_credential;
 
-const sleep = (ms) => {
+function sleep(ms){
     return new Promise(resolve=>{
         setTimeout(resolve,ms)
     })
@@ -82,7 +82,6 @@ const main = async () => {
         
         //  Create credential status websocket
         let statusWsUrl = new_credential.ws;
-        console.log("Create Socket:", statusWsUrl);
         let connect = async (url) => {
             const client = new WebSocketClient();
             const promise = new Promise((resolve, reject) => {
@@ -92,13 +91,14 @@ const main = async () => {
             client.connect(url);
             return promise;
         }
+        await sleep(100); // Sleep to ensure always find the job
+        console.log("Create Socket:", statusWsUrl);
         let connection = await connect(statusWsUrl);
-        sleep(100);
         const message = async () => {
             return new Promise((resolve, reject) => {
                 connection.on('message', message => {
-                    console.log("Received: '" + message.utf8Data + "'");
                     let code = JSON.parse(message.utf8Data).code;
+                    console.log("Received: '" + code + "'");
                     if(code >= 200 && code < 300) {
                         connection.close();
                         resolve();
@@ -106,7 +106,37 @@ const main = async () => {
                 });
             });
         }
+        // Await to websocket connection finish
         await message();
+        // Tolerance time to sleep while transactions are ready
+        await sleep(19999); 
+        console.log('List all transactions');
+        // List Transactions
+        let transactions = await Sync.run(
+            token,
+            '/transactions',
+            {
+                id_credential: id_credential,
+                limit: 5000,
+                has_attachment: 1
+            },
+            'GET'
+        );
+        if(transactions) console.log(transactions[0]);
+        
+        // Get Attachments
+        for (let transaction of transactions) {
+            let attachment = transaction.attachments[0];
+            let id_attachment = attachment.id_attachment;
+            let attachment_url = attachment.url;
+            let attachmentXML = await Sync.run(
+                token,
+                attachment_url,
+                null,
+                'GET'
+            );
+            if(attachmentXML) console.log('Attachment ok for:', id_attachment);
+        }
         
         // Delete user
         let response = await Sync.run(
@@ -119,16 +149,19 @@ const main = async () => {
         wtf.dump();
     } catch (error) {
         console.trace(error.error, error.options || error);
-        //console.trace(error);
         // Delete user if error
+        if (error instanceof SyntaxError) {
+            process.exit(0);
+        }
         if(id_user) {
+            console.log('-----------X_X--------');
+            console.log('OnError: User elimination action running...');
             let response = await Sync.run(
                 APIKEY,
                 `/users/${id_user}`,
                 null,
                 'DELETE'
             );
-            prettyJs(JSON.stringify(response));
         }
         process.exit();
     }
