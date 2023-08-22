@@ -117,7 +117,7 @@ const main = async () => {
             '/transactions',
             {
                 id_credential: id_credential,
-                limit: 5000,
+                limit: 10,
                 has_attachment: 1
             },
             'GET'
@@ -135,7 +135,7 @@ const main = async () => {
                 null,
                 'GET'
             );
-            if(attachmentXML) console.log('Attachment ok for:', id_attachment);
+            if(attachmentXML) console.log('Attachment ok for:', id_attachment, attachmentXML.substring(0,18));
         }
         
         // Delete user

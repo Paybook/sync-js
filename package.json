@@ -1,7 +1,7 @@
 {
   "name": "@paybook/sync-js",
   "version": "1.0.4",
-  "description": "Sync library for Node.js",
+  "description": "Syncfy library for Node.js",
   "main": "src/sync.js",
   "scripts": {
     "test:simple": "node unit_tests/simple_flow_ut.js",
@@ -24,15 +24,14 @@
     "url": "https://github.com/Paybook/sync-js"
   },
   "homepage": "https://github.com/Paybook/sync-js#readme",
-  "dependencies": {
-    "request": "2.88.0",
-    "request-promise": "4.2.4"
-  },
   "devDependencies": {
     "dotenv": "8.2.0",
     "eslint": "5.16.0",
     "pretty-js": "0.2.1",
     "websocket": "^1.0.34",
     "wtfnode": "^0.9.1"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.13"
   }
 }

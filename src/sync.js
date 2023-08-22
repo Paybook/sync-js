@@ -1,6 +1,6 @@
-"use strict";
-const request = require('request-promise')
-const SYNC_HEAD_URL = 'https://sync.paybook.com/v1'
+"use strict"
+const fetch = require("node-fetch");
+const SYNC_HEAD_URL = 'https://api.syncfy.com/v1'
 const Sync = require('./sync');
 
 exports.auth = function auth(AUTH, id_user) {
@@ -15,7 +15,6 @@ exports.auth = function auth(AUTH, id_user) {
                 reject(authentication);
             }   
         } catch (error) {
-            console.error(error);
             reject(error);
         }
     });
@@ -28,8 +27,7 @@ exports.run = function run(AUTH, route, payload, method) {
             let uri = `${SYNC_HEAD_URL}${route}`;
             // INIT OPTIONS
             let options = {
-                url: uri,
-                method: 'POST',
+                method: 'POST'
             }
             // SET HEADERS
             let headers = {
@@ -62,17 +60,21 @@ exports.run = function run(AUTH, route, payload, method) {
             }
             options['headers'] = headers;
             // AWAIT RESPONSE 
-            let result = await request(options);
-            if(!result.includes('<?xml') && !result.includes('<cfdi')) {
-                result = JSON.parse(result);
-                // RESOLVE RESPONSE
-                let response = (Array.isArray(result.response) || typeof result.response !== "boolean") ? result.response : result;
-                resolve(response); 
-            }else {
-                resolve(result);
+            let response = await fetch(uri, options);
+            let responseContentType = response.headers.get("content-type");
+            if(responseContentType.includes("/json")) {
+              let data = await response.json();
+              // RESOLVE RESPONSE
+              let res =
+                Array.isArray(data.response) ||
+                typeof data.response !== "boolean"
+                  ? data.response
+                  : data;
+              resolve(res);
+            }else if(responseContentType.includes('text')){
+                resolve(await response.text());
             }
         } catch (error) {
-            // console.trace(error);
             reject(error)
         }
     });

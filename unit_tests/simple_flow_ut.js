@@ -8,8 +8,9 @@
 require('dotenv').config();
 const prettyJs = require('pretty-js');
 const Sync = require('../src/sync');
-const PG_APIKEY = process.env.PG_APIKEY;
+const APIKEY = process.env.APIKEY;
 const WEBHOOK_URL = process.env.WEBHOOK_URL;
+const ID_SITE_NORMAL = "56cf5728784806f72b8b4568";
 
 function sleep(ms){
     return new Promise(resolve=>{
@@ -19,31 +20,31 @@ function sleep(ms){
 
 // LISTAR USUARIOS
 async function getUsers(filter) {
-    let users = await Sync.run({api_key: PG_APIKEY}, '/users', filter, 'GET');
+    let users = await Sync.run({api_key: APIKEY}, '/users', filter, 'GET');
     return users;
 }
 
 // CREAR USUARIO
 async function createUser(payload) {
-    let user = await Sync.run({api_key: PG_APIKEY}, '/users', payload, 'POST');
+    let user = await Sync.run({api_key: APIKEY}, '/users', payload, 'POST');
     return user;
 }
 
 // ACTUALIZAR USUARIO
 async function updateUser(id_user, payload) {
-    let user = Sync.run({api_key: PG_APIKEY}, `/users/${id_user}`, payload, 'PUT');
+    let user = Sync.run({api_key: APIKEY}, `/users/${id_user}`, payload, 'PUT');
     return user;
 }
 
 // ELIMINAR USUARIO
 async function deleteUser(id_user) {
-    let response = Sync.run({api_key: PG_APIKEY}, `/users/${id_user}`, {}, 'DELETE');
+    let response = Sync.run({api_key: APIKEY}, `/users/${id_user}`, {}, 'DELETE');
     return response;
 }
 
 // CREAR SESION
 async function createSession(id_user) {
-    let session = Sync.auth({api_key: PG_APIKEY}, {id_user: id_user});
+    let session = Sync.auth({api_key: APIKEY}, {id_user: id_user});
     return session;
 }
 
@@ -60,8 +61,8 @@ async function deleteSession(token) {
 }
 
 // CONSULTAR CATALOGO
-async function getCatalogs(token) {
-    let catalog = await Sync.run({token: token}, '/catalogues/organizations/sites', {}, 'GET');
+async function getCatalogs(token, payload) {
+    let catalog = await Sync.run({token: token}, '/catalogues/organizations/sites', payload, 'GET');
     return catalog;
 }
 
@@ -114,19 +115,19 @@ async function downloadAttachment(token, url) {
 
 // CREAR WEBHOOK
 async function createWebhook(payload) {
-    let resp = Sync.run({api_key: PG_APIKEY}, '/webhooks', payload, 'POST');
+    let resp = Sync.run({api_key: APIKEY}, '/webhooks', payload, 'POST');
     return resp;
 }
 
 // CONSULTAR WEBHOOKS
 async function getWebhooks() {
-    let resp = Sync.run({api_key: PG_APIKEY}, '/webhooks', {}, 'GET');
+    let resp = Sync.run({api_key: APIKEY}, '/webhooks', {}, 'GET');
     return resp;
 }
 
 // ELIMINAR WEBHOOK
 async function deleteWebhook(id_webhook) {
-    let resp = Sync.run({api_key: PG_APIKEY}, `/webhooks/${id_webhook}`, {}, 'DELETE');
+    let resp = Sync.run({api_key: APIKEY}, `/webhooks/${id_webhook}`, {}, 'DELETE');
     return resp;
 }
 
@@ -160,7 +161,7 @@ async function main() {
         debug(resp);
         // Consultar catalogos
         console.log('-> Consultar catalogo');
-        let catalogs = await getCatalogs(token);
+        let catalogs = await getCatalogs(token, { id_site: ID_SITE_NORMAL });
         debug(catalogs);
         // Crear credenciales normal
         console.log('-> Crear credeciales normales');
@@ -192,72 +193,9 @@ async function main() {
         console.log('-> Consulta transacciones Normal');
         let normalTranssactions = await getTransactions(token, {id_credential: id_credentialNormal, limit: 5});
         debug(normalTranssactions);
-        // Crear credenciales SAT
-        console.log('-> Crear credenciales SAT');
-        let siteSAT = catalogs[0].sites[11];
-        payload = {}; 
-        payload['id_site'] = siteSAT.id_site;
-        credentials = {};
-        credentials[siteSAT.credentials[0].name] = 'ACM010101ABC';
-        credentials[siteSAT.credentials[1].name] = 'test';
-        payload['credentials'] = credentials;
-        credenciales = await createCredentials(token, payload);
-        debug(credenciales);
-        let id_credentialSAT = credenciales.id_credential;
-        await sleep(30000);
-        // Consultar Credenciales SAT
-        console.log('-> Consulta credenciales SAT');
-        checkCredentials = await getCredentials(token);
-        debug(checkCredentials);
-        // Consulta Status Credenciales SAT
-        console.log('-> Consulta Status de credenciales');
-        id_job = credenciales.id_job;
-        status = await getCredentialsStatus(token, id_job);
-        debug(status);
-        // Consultar cuentas SAT
-        console.log('-> Consulta cuentas SAT');
-        accounts = await getAccounts(token, {id_credential: id_credentialSAT});
-        debug(accounts);
-        // Consulta transacciones SAT
-        console.log('-> Consulta transacciones SAT');
-        let satTranssactions = await getTransactions(token, {id_credential: id_credentialSAT, limit: 5});
-        console.log('SAT TRANSACTIONS length :', satTranssactions.length);
-        debug(satTranssactions[0]);
-        // Consulta todos los archivos adjuntos SAT
-        console.log('-> Consultar todos los archivos adjuntos');
-        let allAttachments = await getAttachments(token, {id_credential: id_credentialSAT, limit: 10});
-        console.log('SAT ATTACHMENTS length :', allAttachments.length);
-        debug(allAttachments);
-        // Descarga archivos adjuntos SAT
-        console.log('-> Descargar archivos adjuntos SAT');
-        let attachment = satTranssactions[0].attachments[0];
-        let documentAttached = await downloadAttachment(token, attachment.url);
-        console.log(documentAttached);
-        // Crear Webhook
-        console.log('-> Crear Webhook');
-        let webhook_endpoint = `${WEBHOOK_URL}/webhook`;
-        payload = {
-            url: webhook_endpoint, 
-            events: ["credential_create","credential_update","refresh"]
-        };
-        resp = await createWebhook(payload);
-        debug(resp);
-        let id_webhook = resp.id_webhook;
-        // Consultar Webhooks
-        console.log('-> Consultar webhooks')
-        resp = await getWebhooks();
-        debug(resp);
-        await sleep(60000);
-        // Eliminar Webhook
-        resp = await deleteWebhook(id_webhook);
-        debug(resp);
         // Eliminar Credenciales Normal
         console.log('-> Elimina credenciales normal');
         resp = await deleteCredential(token, id_credentialNormal)
-        debug(resp);
-        // Eliminar Credenciales SAT
-        console.log('-> Elimina credenciales SAT');
-        resp = await deleteCredential(token, id_credentialSAT)
         debug(resp);
         // Eliminar la sesión
         console.log('-> Elimina sesion');
