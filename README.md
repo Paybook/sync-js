@@ -54,10 +54,15 @@
 
 ## Instalación
 
-1. __Instalar mediante NPM:__
+1. __Instalar �ltima versi�n (v2.0.0) mediante NPM:__
 ```bash
   npm i @paybook/sync-js
 ```
+2. __Instalar versi�n anterior (v1.0.5) mediante NPM:__
+```bash
+  npm i @paybook/sync-js@^1.0.5
+```
+
 ## Requerimientos
 
 1. **API Key:**
@@ -330,22 +335,29 @@ let users = await Sync.run(
 ```
 Devuelve:
 ```json
-[
-  {
-      "id_user": "5df859c4a7a6442757726ef4",
-      "id_external": "ELSAN090909",
-      "name": "El Santo",
-      "dt_create": 1576556996,
-      "dt_modify": null
-  },
-  {
-      "id_user": "5e061a673e0acd77bf7d3c7b",
-      "id_external": "BLDM140389",
-      "name": "Blue Demon",
-      "dt_create": 1577458279,
-      "dt_modify": null
-  }
-]
+{
+  "rid": "b4f15545-ed42-40c3-9002-7aaf08e54887",
+  "code": 200,
+  "errors": null,
+  "status": true,
+  "message": null,
+  "response": [
+    {
+        "id_user": "5df859c4a7a6442757726ef4",
+        "id_external": "ELSAN090909",
+        "name": "El Santo",
+        "dt_create": 1576556996,
+        "dt_modify": null
+    },
+    {
+        "id_user": "5e061a673e0acd77bf7d3c7b",
+        "id_external": "BLDM140389",
+        "name": "Blue Demon",
+        "dt_create": 1577458279,
+        "dt_modify": null
+    }
+  ]
+}
 ```
 
 #### Consultar un usuario en especifico
@@ -359,15 +371,22 @@ let user = await Sync.run(
 ```
 Devuelve:
 ```json
-[
-  {
-      "id_user": "5df859c4a7a6442757726ef4",
-      "id_external": "ELSAN090909",
-      "name": "El Santo",
-      "dt_create": 1576556996,
-      "dt_modify": null
-  }
-]
+{
+  "rid": "b4f15545-ed42-40c3-9002-7aaf08e54855",
+  "code": 200,
+  "errors": null,
+  "status": true,
+  "message": null,
+  "response": [
+    {
+        "id_user": "5df859c4a7a6442757726ef4",
+        "id_external": "ELSAN090909",
+        "name": "El Santo",
+        "dt_create": 1576556996,
+        "dt_modify": null
+    }
+  ]
+}
 ```
 #### Crear un Usuario
 ```javascript
@@ -385,11 +404,18 @@ let {id_user} = user;
 Devuelve:
 ```json
 {
-    "id_user": "5e06694b93f4a91cb218f28f",
-    "id_external": "MIST030794",
-    "name": "Rey Misterio",
-    "dt_create": 1577478475,
-    "dt_modify": null
+    "rid": "f303a999-c5de-4f95-9963-60901a31236b",
+    "code": 200,
+    "errors": null,
+    "status": true,
+    "message": null,
+    "response": {
+        "id_user": "66e34046db92304228290bbc",
+        "id_external": "MIST030794",
+        "name": "Rey Misterio",
+        "dt_create": 1726169158,
+        "dt_modify": null
+    }
 }
 ```
 #### Actualizar un Usuario
@@ -404,13 +430,20 @@ let user = await Sync.run(
 ```
 Devuelve:
 ```json
-  {
-      "id_user": "5df859c4a7a6442757726ef4",
-      "id_external": "ELSAN090909",
-      "name": "El Santo Jr.",
-      "dt_create": 1576556996,
-      "dt_modify": 1576557005
-  }
+{
+    "rid": "f303a999-c5de-4f95-9963-60901a31234d",
+    "code": 200,
+    "errors": null,
+    "status": true,
+    "message": null,
+    "response": {
+        "id_user": "5df859c4a7a6442757726ef4",
+        "id_external": "ELSAN090909",
+        "name": "El Santo Jr.",
+        "dt_create": 1726169158,
+        "dt_modify": 1576557005
+    }
+}
 ```
 
 #### Eliminar un usuario
@@ -535,104 +568,111 @@ Paybook Sync proporciona un catálogo de las instituciones que podemos sincroniz
 
 Devuelve:
 ```json
-[
-  {
-      "id_site": "56cf5728784806f72b8b4568",
-      "id_site_organization": "56cf4ff5784806152c8b4567",
-      "id_site_organization_type": "56cf4f5b784806cf028b4568",
-      "id_site_type": "5b285177056f2911c13dbce1",
-      "is_business": 1,
-      "is_personal": 1,
-      "version": 1,
-      "name": "Normal",
-      "credentials": [
-          {
-              "name": "username",
-              "type": "text",
-              "label": "Username",
-              "required": true,
-              "username": true,
-              "token": false,
-              "validation": null
-          },
-          {
-              "name": "password",
-              "type": "password",
-              "label": "Password",
-              "required": true,
-              "username": false,
-              "token": false,
-              "validation": null
-          }
-      ],
-      "endpoint": "/v1/credentials"
-  },
-  {
-      "id_site": "56cf5728784806f72b8b4569",
-      "id_site_organization": "56cf4ff5784806152c8b4567",
-      "id_site_organization_type": "56cf4f5b784806cf028b4568",
-      "id_site_type": "5b285177056f2911c13dbce1",
-      "is_business": 1,
-      "is_personal": 1,
-      "version": 1,
-      "name": "Token",
-      "credentials": [
-          {
-              "name": "username",
-              "type": "text",
-              "label": "Username",
-              "required": true,
-              "username": true,
-              "token": false,
-              "validation": null
-          },
-          {
-              "name": "password",
-              "type": "password",
-              "label": "Password",
-              "required": true,
-              "username": false,
-              "token": false,
-              "validation": null
-          }
-      ],
-      "endpoint": "/v1/credentials"
-  },
-  {
-      "id_site": "572ba390784806060f8b458b",
-      "id_site_organization": "56cf4ff5784806152c8b4567",
-      "id_site_organization_type": "56cf4f5b784806cf028b4568",
-      "id_site_type": "5b285177056f2911c13dbce1",
-      "is_business": 1,
-      "is_personal": 1,
-      "version": 1,
-      "name": "Token & captcha",
-      "credentials": [
-          {
-              "name": "username",
-              "type": "text",
-              "label": "Username",
-              "required": true,
-              "username": true,
-              "token": false,
-              "validation": null
-          },
-          {
-              "name": "password",
-              "type": "password",
-              "label": "Password",
-              "required": true,
-              "username": false,
-              "token": false,
-              "validation": null
-          }
-      ],
-      "endpoint": "/v1/credentials"
-  }
-  .
-  .
-  .
-]
+{
+    "rid": "8cf6fdca-df68-4385-95ec-01e19ab14280",
+    "code": 200,
+    "errors": null,
+    "status": true,
+    "message": null,
+    "response": [
+        {
+            "id_site": "56cf5728784806f72b8b4568",
+            "id_site_organization": "56cf4ff5784806152c8b4567",
+            "id_site_organization_type": "56cf4f5b784806cf028b4568",
+            "id_site_type": "5b285177056f2911c13dbce1",
+            "is_business": 1,
+            "is_personal": 1,
+            "version": 1,
+            "name": "Normal",
+            "credentials": [
+                {
+                    "name": "username",
+                    "type": "text",
+                    "label": "Username",
+                    "required": true,
+                    "username": true,
+                    "token": false,
+                    "validation": null
+                },
+                {
+                    "name": "password",
+                    "type": "password",
+                    "label": "Password",
+                    "required": true,
+                    "username": false,
+                    "token": false,
+                    "validation": null
+                }
+            ],
+            "endpoint": "/v1/credentials"
+        },
+        {
+            "id_site": "56cf5728784806f72b8b4569",
+            "id_site_organization": "56cf4ff5784806152c8b4567",
+            "id_site_organization_type": "56cf4f5b784806cf028b4568",
+            "id_site_type": "5b285177056f2911c13dbce1",
+            "is_business": 1,
+            "is_personal": 1,
+            "version": 1,
+            "name": "Token",
+            "credentials": [
+                {
+                    "name": "username",
+                    "type": "text",
+                    "label": "Username",
+                    "required": true,
+                    "username": true,
+                    "token": false,
+                    "validation": null
+                },
+                {
+                    "name": "password",
+                    "type": "password",
+                    "label": "Password",
+                    "required": true,
+                    "username": false,
+                    "token": false,
+                    "validation": null
+                }
+            ],
+            "endpoint": "/v1/credentials"
+        },
+        {
+            "id_site": "572ba390784806060f8b458b",
+            "id_site_organization": "56cf4ff5784806152c8b4567",
+            "id_site_organization_type": "56cf4f5b784806cf028b4568",
+            "id_site_type": "5b285177056f2911c13dbce1",
+            "is_business": 1,
+            "is_personal": 1,
+            "version": 1,
+            "name": "Token & captcha",
+            "credentials": [
+                {
+                    "name": "username",
+                    "type": "text",
+                    "label": "Username",
+                    "required": true,
+                    "username": true,
+                    "token": false,
+                    "validation": null
+                },
+                {
+                    "name": "password",
+                    "type": "password",
+                    "label": "Password",
+                    "required": true,
+                    "username": false,
+                    "token": false,
+                    "validation": null
+                }
+            ],
+            "endpoint": "/v1/credentials"
+        }
+        .
+        .
+        .
+  ]
+}
 ```
 
 ### Credenciales
@@ -762,14 +802,21 @@ Cada institución tiene sus propias credenciales, algunas instituciones requiere
 Devuelve:
 ```json
 {
-   "id_credential":"5e17c432d7288d358a039141",
-   "id_job_uuid":"5e17c4325d4f6077171c0253",
-   "id_job":"5e17c4325d4f6077171c0254",
-   "is_new":1,
-   "username":"t**t",
-   "ws":"wss://sync.paybook.com/v1/status/5e17c4325d4f6077171c0254",
-   "status":"https://sync.paybook.com/v1/jobs/5e17c4325d4f6077171c0254/status",
-   "twofa":"https://sync.paybook.com/v1/jobs/5e17c4325d4f6077171c0254/twofa"
+  "rid": "f4060494-dc1a-4e07-8f33-aa5e7b18dafa",
+  "code": 200,
+  "errors": null,
+  "status": true,
+  "message": null,
+  "response":{
+      "id_credential":"5e17c432d7288d358a039141",
+      "id_job_uuid":"5e17c4325d4f6077171c0253",
+      "id_job":"5e17c4325d4f6077171c0254",
+      "is_new":1,
+      "username":"t**t",
+      "ws":"wss://sync.paybook.com/v1/status/5e17c4325d4f6077171c0254",
+      "status":"https://sync.paybook.com/v1/jobs/5e17c4325d4f6077171c0254/status",
+      "twofa":"https://sync.paybook.com/v1/jobs/5e17c4325d4f6077171c0254/twofa"
+    }
 }
 ```
 
@@ -785,30 +832,37 @@ Devuelve:
 ```
 Devuelve:
 ```json
-[
-   {
-      "id_credential":"5e17c432d7288d358a039141",
-      "id_user":"5e17c430b021255889294af7",
-      "id_environment":"574894bf7848066d138b4570",
-      "id_external":"",
-      "id_site":"56cf5728784806f72b8b4568",
-      "id_site_organization":"56cf4ff5784806152c8b4567",
-      "id_site_organization_type":"56cf4f5b784806cf028b4568",
-      "id_organization":"56cf4ff5784806152c8b4567",
-      "is_authorized":1,
-      "is_locked":0,
-      "is_twofa":0,
-      "can_sync":0,
-      "ready_in":86377,
-      "username":"t**t",
-      "code":200,
-      "keywords":null,
-      "dt_authorized":1578615866,
-      "dt_execute":1578615858,
-      "dt_ready":1578702266,
-      "dt_refresh":null
-   }
-]
+{
+  "rid": "f4060494-dc1a-4e07-8f33-fb7a6f84d06a",
+  "code": 200,
+  "errors": null,
+  "status": true,
+  "message": null,
+  "response":[
+      {
+          "id_credential":"5e17c432d7288d358a039141",
+          "id_user":"5e17c430b021255889294af7",
+          "id_environment":"574894bf7848066d138b4570",
+          "id_external":"",
+          "id_site":"56cf5728784806f72b8b4568",
+          "id_site_organization":"56cf4ff5784806152c8b4567",
+          "id_site_organization_type":"56cf4f5b784806cf028b4568",
+          "id_organization":"56cf4ff5784806152c8b4567",
+          "is_authorized":1,
+          "is_locked":0,
+          "is_twofa":0,
+          "can_sync":0,
+          "ready_in":86377,
+          "username":"t**t",
+          "code":200,
+          "keywords":null,
+          "dt_authorized":1578615866,
+          "dt_execute":1578615858,
+          "dt_ready":1578702266,
+          "dt_refresh":null
+      }
+    ]
+}
 ```
 #### Credenciales TWOFA
 
@@ -840,14 +894,21 @@ let twofaCredentials = await Sync.run(
 );
 /* Regresa:
 {
-  id_credential: "5e27c17ca2fc48614c41b33e",
-  id_job_uuid: "5e27c17ce6fea94c7c6b4193",
-  id_job: "5e27c17ce6fea94c7c6b4194",
-  is_new: 1,
-  username: "t**t",
-  ws: "wss://sync.paybook.com/v1/status/5e27c17ce6fea94c7c6b4194",
-  status: "https://sync.paybook.com/v1/jobs/5e27c17ce6fea94c7c6b4194/status",
-  twofa: "https://sync.paybook.com/v1/jobs/5e27c17ce6fea94c7c6b4194/twofa"
+  "rid": "f4060494-dc1a-4e07-8f33-fb7a6f84876f",
+  "code": 200,
+  "errors": null,
+  "status": true,
+  "message": null,
+  "response": {
+      id_credential: "5e27c17ca2fc48614c41b33e",
+      id_job_uuid: "5e27c17ce6fea94c7c6b4193",
+      id_job: "5e27c17ce6fea94c7c6b4194",
+      is_new: 1,
+      username: "t**t",
+      ws: "wss://sync.paybook.com/v1/status/5e27c17ce6fea94c7c6b4194",
+      status: "https://sync.paybook.com/v1/jobs/5e27c17ce6fea94c7c6b4194/status",
+      twofa: "https://sync.paybook.com/v1/jobs/5e27c17ce6fea94c7c6b4194/twofa"
+  }
 }
 */
 ```
@@ -862,25 +923,32 @@ let status = await Sync.run(
   'GET'
 );
 /* Regresa:
-[
-  {
-      code: 100
-  },
-  {
-      code: 101
-  },
-  {
-      code: 410,
-      address: "https://sync.paybook.com/v1/jobs/5e27c17ce6fea94c7c6b4194/twofa",
-      twofa: [
-          {
-              name: "token",
-              type: "text",
-              label: "Enter any number sequence as a token"
-          }
-      ]
-  }
-]
+{
+  "rid": "c03f75a3-2683-47ac-b2bc-e0927d9fa5c5",
+  "code": 200,
+  "errors": null,
+  "status": true,
+  "message": null,
+  "response":[
+      {
+          code: 100
+      },
+      {
+          code: 101
+      },
+      {
+          code: 410,
+          address: "https://sync.paybook.com/v1/jobs/5e27c17ce6fea94c7c6b4194/twofa",
+          twofa: [
+              {
+                  name: "token",
+                  type: "text",
+                  label: "Enter any number sequence as a token"
+              }
+          ]
+      }
+    ]
+}
 */
 let is_twofa = false;
 if(status[status.length].code == 410){
@@ -920,31 +988,38 @@ status = await Sync.run(
   'GET'
 );
 /* Regresa:
-[
-  {
-      code: 100
-  },
-  {
-      code: 101
-  },
-  {
-      code: 410,
-      address: "https://sync.paybook.com/v1/jobs/5e27c17ce6fea94c7c6b4194/twofa",
-      twofa: [
-          {
-              name: "token",
-              type: "text",
-              label: "Enter any number sequence as a token"
-          }
-      ]
-  },
-  {
-      code: 102
-  },
-  {
-      code: 200
-  }
-]
+{
+  "rid": "aee6a6aa-8e43-4aaa-8622-4dbbf5b4d81c",
+  "code": 200,
+  "errors": null,
+  "status": true,
+  "message": null,
+  "response":[
+      {
+          code: 100
+      },
+      {
+          code: 101
+      },
+      {
+          code: 410,
+          address: "https://sync.paybook.com/v1/jobs/5e27c17ce6fea94c7c6b4194/twofa",
+          twofa: [
+              {
+                  name: "token",
+                  type: "text",
+                  label: "Enter any number sequence as a token"
+              }
+          ]
+      },
+      {
+          code: 102
+      },
+      {
+          code: 200
+      }
+    ]
+}
 */
 ```
 
@@ -959,30 +1034,37 @@ status = await Sync.run(
 ```
 Devuelve:
 ```json
-[
-   {
-      "id_credential":"5e17c432d7288d358a039141",
-      "id_user":"5e17c430b021255889294af7",
-      "id_environment":"574894bf7848066d138b4570",
-      "id_external":"",
-      "id_site":"56cf5728784806f72b8b4568",
-      "id_site_organization":"56cf4ff5784806152c8b4567",
-      "id_site_organization_type":"56cf4f5b784806cf028b4568",
-      "id_organization":"56cf4ff5784806152c8b4567",
-      "is_authorized":1,
-      "is_locked":0,
-      "is_twofa":0,
-      "can_sync":0,
-      "ready_in":86377,
-      "username":"t**t",
-      "code":200,
-      "keywords":null,
-      "dt_authorized":1578615866,
-      "dt_execute":1578615858,
-      "dt_ready":1578702266,
-      "dt_refresh":null
-   }
-]
+{
+  "rid": "18ce79ec-8e43-4aaa-8622-68d20dfe9f6b",
+  "code": 200,
+  "errors": null,
+  "status": true,
+  "message": null,
+  "response":[
+      {
+          "id_credential":"5e17c432d7288d358a039141",
+          "id_user":"5e17c430b021255889294af7",
+          "id_environment":"574894bf7848066d138b4570",
+          "id_external":"",
+          "id_site":"56cf5728784806f72b8b4568",
+          "id_site_organization":"56cf4ff5784806152c8b4567",
+          "id_site_organization_type":"56cf4f5b784806cf028b4568",
+          "id_organization":"56cf4ff5784806152c8b4567",
+          "is_authorized":1,
+          "is_locked":0,
+          "is_twofa":0,
+          "can_sync":0,
+          "ready_in":86377,
+          "username":"t**t",
+          "code":200,
+          "keywords":null,
+          "dt_authorized":1578615866,
+          "dt_execute":1578615858,
+          "dt_ready":1578702266,
+          "dt_refresh":null
+      }
+    ]
+}
 ```
 
 #### Eliminar una credencial
@@ -1020,20 +1102,27 @@ let status = await Sync.run(
 
 Devuelve:
 ```json
-[
-   {
-      "code":100
-   },
-   {
-      "code":101
-   },
-   {
-      "code":102
-   },
-   {
-      "code":200
-   }
-]
+{
+  "rid": "3f3148a1-223e-4600-b3f5-19c8e4bec596",
+  "code": 200,
+  "errors": null,
+  "status": true,
+  "message": null,
+  "response":[
+      {
+          "code":100
+      },
+      {
+          "code":101
+      },
+      {
+          "code":102
+      },
+      {
+          "code":200
+      }
+    ]
+}
 ```
 > Puedes consultar el significado de cada código [aquí][sync-doc-code.response].
 
@@ -1094,27 +1183,34 @@ let accounts = Sync.run(
 ```
 Devuelve:
 ```json
-[
-  {
-    "id_account":"3406d3750b215b9a7f8b4523",
-    "id_user":"15f98da7784606ef028b4598",
-    "id_external":"37f98da4584806ef028b4567",
-    "id_credential":"4806d33c0b234af8028b478b",
-    "id_site":"98cf5728784839f72b8b449f",
-    "id_site_organization":"29cf4ff5784806152c8b4548",
-    "name":"My Bank Account",
-    "number":null,
-    "balance":1200,
-    "site":{
-        "id_site":"12cf5728784883f72b8b495f",
-        "name":"The Bank",
-        "avatar":"/images/8574c68f0b212a194a8c1819/avatar",
-        "cover":"/images/5944c68f0b212a194a8c3949/cover",
-        "small_cover":"/images/59454c68f0b212a194a8c5719/small_cover"
-    },
-    "dt_refresh":1460816581
-  }
-]
+{
+  "rid": "d75e0e0a-d6fc-4695-9712-8f561d9306aa",
+  "code": 200,
+  "errors": null,
+  "status": true,
+  "message": null,
+  "response":[
+      {
+        "id_account":"3406d3750b215b9a7f8b4523",
+        "id_user":"15f98da7784606ef028b4598",
+        "id_external":"37f98da4584806ef028b4567",
+        "id_credential":"4806d33c0b234af8028b478b",
+        "id_site":"98cf5728784839f72b8b449f",
+        "id_site_organization":"29cf4ff5784806152c8b4548",
+        "name":"My Bank Account",
+        "number":null,
+        "balance":1200,
+        "site":{
+            "id_site":"12cf5728784883f72b8b495f",
+            "name":"The Bank",
+            "avatar":"/images/8574c68f0b212a194a8c1819/avatar",
+            "cover":"/images/5944c68f0b212a194a8c3949/cover",
+            "small_cover":"/images/59454c68f0b212a194a8c5719/small_cover"
+        },
+        "dt_refresh":1460816581
+      }
+    ]
+}
 ```
 
 ### Transacciones
@@ -1207,67 +1303,74 @@ let transactions = await Sync.run(
 ```
 Devuelve:
 ```json
-[
-  {
-    "id_transaction": "5b64940bcaaf237edf60ce7a",
-    "id_account": "5703f88223428348328b45db",
-    "id_account_type": "520d3aa93b8e778e0d000000",
-    "id_credential": "5e1d5734e849507b770c5007",
-    "id_currency": "523a25953b8e77910e8b456c",
-    "id_disable_type": "5bcff1e77d8b6b44380f6da2",
-    "id_external": "",
-    "id_site": "56cf5728784806f72b8b4568",
-    "id_site_organization": "56cf4ff5784806152c8b4567",
-    "id_site_organization_type": "56cf4f5b784806cf028b4568",
-    "id_user": "5df7e5f40437a90a8d5037a0",
-    "is_account_disable": 0,
-    "is_deleted": 0,
-    "is_disable": 1,
-    "is_pending": 0,
-    "description": "ACME Checking Transaction 20",
-    "amount": 26,
-    "currency": "MXN",
-    "attachments": [],
-    "extra": null,
-    "reference": null,
-    "keywords": null,
-    "dt_transaction": 1533099600,
-    "dt_refresh": 1561500261,
-    "dt_disable": 1561500261,
-    "dt_deleted": null
-  },
-  {
-      "id_transaction": "5b686fd6caaf237ddc20304a",
-      "id_account": "5703f88223428348328b45db",
-      "id_account_type": "520d3aa93b8e778e0d000000",
-      "id_credential": "5e1d5734e849507b770c5007",
-      "id_currency": "523a25953b8e77910e8b456c",
-      "id_disable_type": "5bcff1e77d8b6b44380f6da2",
-      "id_external": "",
-      "id_site": "56cf5728784806f72b8b4568",
-      "id_site_organization": "56cf4ff5784806152c8b4567",
-      "id_site_organization_type": "56cf4f5b784806cf028b4568",
-      "id_user": "5df7e5f40437a90a8d5037a0",
-      "is_account_disable": 0,
-      "is_deleted": 0,
-      "is_disable": 1,
-      "is_pending": 0,
-      "description": "ACME Checking Transaction 20",
-      "amount": 49,
-      "currency": "MXN",
-      "attachments": [],
-      "extra": null,
-      "reference": null,
-      "keywords": null,
-      "dt_transaction": 1533099600,
-      "dt_refresh": 1559007370,
-      "dt_disable": 1559007370,
-      "dt_deleted": null
-  },
-  .
-  .
-  .
-]
+{
+  "rid": "d75e0e0a-d6fc-4695-9712-294fe2964dad",
+  "code": 200,
+  "errors": null,
+  "status": true,
+  "message": null,
+  "response":[
+      {
+        "id_transaction": "5b64940bcaaf237edf60ce7a",
+        "id_account": "5703f88223428348328b45db",
+        "id_account_type": "520d3aa93b8e778e0d000000",
+        "id_credential": "5e1d5734e849507b770c5007",
+        "id_currency": "523a25953b8e77910e8b456c",
+        "id_disable_type": "5bcff1e77d8b6b44380f6da2",
+        "id_external": "",
+        "id_site": "56cf5728784806f72b8b4568",
+        "id_site_organization": "56cf4ff5784806152c8b4567",
+        "id_site_organization_type": "56cf4f5b784806cf028b4568",
+        "id_user": "5df7e5f40437a90a8d5037a0",
+        "is_account_disable": 0,
+        "is_deleted": 0,
+        "is_disable": 1,
+        "is_pending": 0,
+        "description": "ACME Checking Transaction 20",
+        "amount": 26,
+        "currency": "MXN",
+        "attachments": [],
+        "extra": null,
+        "reference": null,
+        "keywords": null,
+        "dt_transaction": 1533099600,
+        "dt_refresh": 1561500261,
+        "dt_disable": 1561500261,
+        "dt_deleted": null
+      },
+      {
+          "id_transaction": "5b686fd6caaf237ddc20304a",
+          "id_account": "5703f88223428348328b45db",
+          "id_account_type": "520d3aa93b8e778e0d000000",
+          "id_credential": "5e1d5734e849507b770c5007",
+          "id_currency": "523a25953b8e77910e8b456c",
+          "id_disable_type": "5bcff1e77d8b6b44380f6da2",
+          "id_external": "",
+          "id_site": "56cf5728784806f72b8b4568",
+          "id_site_organization": "56cf4ff5784806152c8b4567",
+          "id_site_organization_type": "56cf4f5b784806cf028b4568",
+          "id_user": "5df7e5f40437a90a8d5037a0",
+          "is_account_disable": 0,
+          "is_deleted": 0,
+          "is_disable": 1,
+          "is_pending": 0,
+          "description": "ACME Checking Transaction 20",
+          "amount": 49,
+          "currency": "MXN",
+          "attachments": [],
+          "extra": null,
+          "reference": null,
+          "keywords": null,
+          "dt_transaction": 1533099600,
+          "dt_refresh": 1559007370,
+          "dt_disable": 1559007370,
+          "dt_deleted": null
+      },
+      .
+      .
+      .
+    ]
+}
 ```
 #### Consulta el número de transacciones dados algunos parámetros de búsqueda
 
@@ -1283,7 +1386,14 @@ let countTransactions = await Sync.run(
 Devuelve:
 ```json
 {
-  "count": 140
+  "rid": "9789ff14-7dd8-432e-b43a-eb579475bf79",
+  "code": 200,
+  "errors": null,
+  "status": true,
+  "message": null,
+  "response":{
+      "count": 140
+    }
 }
 ```
 
@@ -1360,17 +1470,24 @@ let response = Sync.run(
 Devuelve:
 ```json
 {
-   "id_webhook":"5e17c4746cee651e7b03df34",
-   "id_user":null,
-   "events":[
-      "credential_create",
-      "credential_update",
-      "refresh"
-   ],
-   "url":"http://8e763e9e.ngrok.io/webhook",
-   "delay":0,
-   "dt_created":1578615924,
-   "dt_modified":null
+  "rid": "9789ff14-7dd8-432e-b43a-3c1e8bf68e80",
+  "code": 200,
+  "errors": null,
+  "status": true,
+  "message": null,
+  "response": {
+      "id_webhook":"5e17c4746cee651e7b03df34",
+      "id_user":null,
+      "events":[
+          "credential_create",
+          "credential_update",
+          "refresh"
+      ],
+      "url":"http://8e763e9e.ngrok.io/webhook",
+      "delay":0,
+      "dt_created":1578615924,
+      "dt_modified":null
+    }
 }
 ```
 
@@ -1387,23 +1504,30 @@ let response = Sync.run(
 
 Devuelve:
 ```json
-[
-   {
-      "id_webhook":"5e17c4746cee651e7b03df34",
-      "id_user":null,
-      "is_disabled":0,
-      "events":[
-         "credential_create",
-         "credential_update",
-         "refresh"
-      ],
-      "url":"http://8e763e9e.ngrok.io/webhook",
-      "delay":0,
-      "ct_failed":0,
-      "dt_created":"2020-01-10T00:25:24+00:00",
-      "dt_modified":null
-   }
-]
+{
+  "rid": "9789ff14-7dd8-432e-b43a-bc1d5bb7b36e",
+  "code": 200,
+  "errors": null,
+  "status": true,
+  "message": null,
+  "response": [
+      {
+          "id_webhook":"5e17c4746cee651e7b03df34",
+          "id_user":null,
+          "is_disabled":0,
+          "events":[
+            "credential_create",
+            "credential_update",
+            "refresh"
+          ],
+          "url":"http://8e763e9e.ngrok.io/webhook",
+          "delay":0,
+          "ct_failed":0,
+          "dt_created":"2020-01-10T00:25:24+00:00",
+          "dt_modified":null
+      }
+    ]
+}
 ```
 ####  Eliminar Webhook
 
@@ -1533,56 +1657,63 @@ let attachments = Sync.run(
 
 Devuelve:
 ```json
-[
-   {
-      "id_attachment":"5db073b4caaf236a6a4c2eb5",
-      "id_account":"5db073b1caaf236a6a4c2acc",
-      "id_user":"5e17c430b021255889294af7",
-      "id_external":"",
-      "id_attachment_type":"56bcdfca784806d1378b4567",
-      "id_transaction":"5db073b1caaf236a6a4c2acd",
-      "is_valid":1,
-      "file":"4B2B511C-A29E-4CDF-8AD3-143515CF6152.xml",
-      "mime":null,
-      "url":"/attachments/5db073b4caaf236a6a4c2eb5",
-      "keywords":[
-         "3.3",
-         "emitidas",
-         "i",
-         "timbrefiscaldigital",
-         "vigente"
-      ],
-      "dt_refresh":1571844997
-   },
-   {
-      "id_attachment":"5db073b4caaf236a6a4c2eb6",
-      "id_account":"5db073b1caaf236a6a4c2acc",
-      "id_user":"5e17c430b021255889294af7",
-      "id_external":"",
-      "id_attachment_type":"56bcdfca784806d1378b4567",
-      "id_transaction":"5db073b1caaf236a6a4c2ace",
-      "is_valid":1,
-      "file":"27D33E8C-0120-4F98-ACCD-1C0DBA9D794F.xml",
-      "mime":null,
-      "url":"/attachments/5db073b4caaf236a6a4c2eb6",
-      "keywords":[
-         "001",
-         "002",
-         "3.3",
-         "i",
-         "impuestos",
-         "recibidas",
-         "retenciones",
-         "timbrefiscaldigital",
-         "traslados",
-         "vigente"
-      ],
-      "dt_refresh":1571844997
-   },
-   .
-   .
-   .
-]
+{
+  "rid": "c352df17-d04c-4818-85fe-55230358cb4e",
+  "code": 200,
+  "errors": null,
+  "status": true,
+  "message": null,
+  "response": [
+      {
+          "id_attachment":"5db073b4caaf236a6a4c2eb5",
+          "id_account":"5db073b1caaf236a6a4c2acc",
+          "id_user":"5e17c430b021255889294af7",
+          "id_external":"",
+          "id_attachment_type":"56bcdfca784806d1378b4567",
+          "id_transaction":"5db073b1caaf236a6a4c2acd",
+          "is_valid":1,
+          "file":"4B2B511C-A29E-4CDF-8AD3-143515CF6152.xml",
+          "mime":null,
+          "url":"/attachments/5db073b4caaf236a6a4c2eb5",
+          "keywords":[
+            "3.3",
+            "emitidas",
+            "i",
+            "timbrefiscaldigital",
+            "vigente"
+          ],
+          "dt_refresh":1571844997
+      },
+      {
+          "id_attachment":"5db073b4caaf236a6a4c2eb6",
+          "id_account":"5db073b1caaf236a6a4c2acc",
+          "id_user":"5e17c430b021255889294af7",
+          "id_external":"",
+          "id_attachment_type":"56bcdfca784806d1378b4567",
+          "id_transaction":"5db073b1caaf236a6a4c2ace",
+          "is_valid":1,
+          "file":"27D33E8C-0120-4F98-ACCD-1C0DBA9D794F.xml",
+          "mime":null,
+          "url":"/attachments/5db073b4caaf236a6a4c2eb6",
+          "keywords":[
+            "001",
+            "002",
+            "3.3",
+            "i",
+            "impuestos",
+            "recibidas",
+            "retenciones",
+            "timbrefiscaldigital",
+            "traslados",
+            "vigente"
+          ],
+          "dt_refresh":1571844997
+      },
+      .
+      .
+      .
+    ]
+}
 ```
 #### Regresa el archivo adjunto
 ```javascript
@@ -1623,93 +1754,100 @@ let infoExtra = Sync.run(
 Devuelve:
 ```json
 {
-    "id_attachment": "5db073b4caaf236a6a4c2eb5",
-    "id_user": "5df7e5f40437a90a8d5037a0",
-    "id_external": "",
-    "is_valid": 1,
-    "file": "4B2B511C-A29E-4CDF-8AD3-143515CF6152.xml",
-    "mime": null,
-    "extra": [
-        {
-            "n": "CFDI:COMPROBANTE",
-            "a": {
-                "XMLNS:CFDI": "http://www.sat.gob.mx/cfd/3",
-                "XMLNS:XSI": "http://www.w3.org/2001/XMLSchema-instance",
-                "XSI:SCHEMALOCATION": "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd",
-                "VERSION": "3.3",
-                "SERIE": "C",
-                "FOLIO": "78",
-                "FECHA": "2019-01-24T06:15:49",
-                "FORMAPAGO": "99",
-                "NOCERTIFICADO": "0000100000040090000",
-                "CERTIFICADO": "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",
-                "SUBTOTAL": "810.18",
-                "DESCUENTO": "0.00",
-                "MONEDA": "MXN",
-                "TOTAL": "810.18",
-                "TIPODECOMPROBANTE": "I",
-                "METODOPAGO": "PUE",
-                "LUGAREXPEDICION": "00000",
-                "SELLO": "CjGJ6Uz6jWQ6wFyn8SEvRVCOCZq2sRtTAsUkLJjrs8vPSHfeEs+bMBhNnZ+7gLE5gSO+FU+IA64d+I9w98DEop24GRNDoWPxRGvX7SON4p47Ygna/rCWynyjCw8kYqRtBHxypwh0HGFLoNx+ulK+WcOXG7F3Nx2I+EPTg6jn1VvwBm1c1iat1Zgnhcna2ZJyZA3cRFOBhNONocr+qAF8zTtHSoJNYmolOlyIC9akyIPfrNl/ALgni4k1KwpEcr4HsyqVabUDW47vH5TqSNfFz+ZY3bZZZf7FLdTBn8So984+vbomWg/rP7OCBALI/u/+kIkgotm4TF/ImuGjUeKITw=="
-            },
-            "c": [
-                {
-                    "n": "CFDI:EMISOR",
-                    "a": {
-                        "RFC": "ACM010101ABC",
-                        "NOMBRE": "ACME CORP",
-                        "REGIMENFISCAL": "601"
-                    }
-                },
-                {
-                    "n": "CFDI:RECEPTOR",
-                    "a": {
-                        "RFC": "EKU9003173C9",
-                        "NOMBRE": "ESCUELA KEMPER URGATE SA DE CV",
-                        "USOCFDI": "P01"
-                    }
-                },
-                {
-                    "n": "CFDI:CONCEPTOS",
-                    "c": [
-                        {
-                            "n": "CFDI:CONCEPTO",
-                            "a": {
-                                "CLAVEPRODSERV": "00195316",
-                                "CANTIDAD": "1",
-                                "CLAVEUNIDAD": "H87",
-                                "UNIDAD": "PZA",
-                                "DESCRIPCION": "PRODUCTO 1",
-                                "VALORUNITARIO": "810.18",
-                                "IMPORTE": "810.18",
-                                "DESCUENTO": "0"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "n": "CFDI:COMPLEMENTO",
-                    "c": [
-                        {
-                            "n": "TFD:TIMBREFISCALDIGITAL",
-                            "a": {
-                                "XMLNS:TFD": "http://www.sat.gob.mx/TimbreFiscalDigital",
-                                "XMLNS:XSI": "http://www.w3.org/2001/XMLSchema-instance",
-                                "XSI:SCHEMALOCATION": "http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/cfd/timbrefiscaldigital/TimbreFiscalDigitalv11.xsd",
-                                "VERSION": "1.1",
-                                "UUID": "4B2B511C-A29E-4CDF-8AD3-143515CF6152",
-                                "FECHATIMBRADO": "2019-10-11T02:43:34",
-                                "SELLOCFD": "CjGJ6Uz6jWQ6wFyn8SEvRVCOCZq2sRtTAsUkLJjrs8vPSHfeEs+bMBhNnZ+7gLE5gSO+FUz6jWQ6wFyn8SEvRVCOCZq2sWPxRGvX7SON4p47Ygna/rCWynyjCw8kYqRtBHxypwh0HGFLoNx+ulK+WcOXG7F3Nx2I+EPTg6jn1Vvz6jWQ6wFyn8SEvRVCOCZq2s3cRFOBhNONocr+qAF8zTtHSoJNYmolOlyIC9akyIPfrNl/ALgni4k1KwpEcr4HsyqVabz6jWQ6wFyn8SEvRVCOCZq2sf7FLdTBn8So984+vbomWg/rP7OCBALI/u/+kIkgotm4TF/ImuGjUeKITw==",
-                                "NOCERTIFICADOSAT": "00001000000407657133",
-                                "SELLOSAT": "W82etl3ZwAEDP7qT705tkK7jryQU5WCFUIOw1nmDyy5/iaxsOVuDPVyhK7fQMRG6A6x9WHGYjkMDZ0DkOnq1vcClr2Sn5yOLdWd9VYf6hg6e/RiLTn1mSUni/47rWNbyODfcom3hmKasclgBEYZL6unymQD2bsUfMc0L5ODZ5/AfK36/bYVeakauL1NxXMZ2Zc4RrX5Zd5AkF04VB6UWqDL2/zuCGDccA6/MsJR2BeXnq/hQ1I8WNSNGcy1OzBukQqRbhe9hIRit58F/ZtTtFnzyeT3Tknu9MIZFq/7D+tw0TxUziC+g2n86iiKRXnRJQvlowqKmkPGO8jMefrx8pg==",
-                                "RFCPROVCERTIF": "ACM100625MC0"
-                            }
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
+  "rid": "c352df17-d04c-4818-85fe-21f38278b2cd",
+  "code": 200,
+  "errors": null,
+  "status": true,
+  "message": null,
+  "response": {
+      "id_attachment": "5db073b4caaf236a6a4c2eb5",
+      "id_user": "5df7e5f40437a90a8d5037a0",
+      "id_external": "",
+      "is_valid": 1,
+      "file": "4B2B511C-A29E-4CDF-8AD3-143515CF6152.xml",
+      "mime": null,
+      "extra": [
+          {
+              "n": "CFDI:COMPROBANTE",
+              "a": {
+                  "XMLNS:CFDI": "http://www.sat.gob.mx/cfd/3",
+                  "XMLNS:XSI": "http://www.w3.org/2001/XMLSchema-instance",
+                  "XSI:SCHEMALOCATION": "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd",
+                  "VERSION": "3.3",
+                  "SERIE": "C",
+                  "FOLIO": "78",
+                  "FECHA": "2019-01-24T06:15:49",
+                  "FORMAPAGO": "99",
+                  "NOCERTIFICADO": "0000100000040090000",
+                  "CERTIFICADO": "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",
+                  "SUBTOTAL": "810.18",
+                  "DESCUENTO": "0.00",
+                  "MONEDA": "MXN",
+                  "TOTAL": "810.18",
+                  "TIPODECOMPROBANTE": "I",
+                  "METODOPAGO": "PUE",
+                  "LUGAREXPEDICION": "00000",
+                  "SELLO": "CjGJ6Uz6jWQ6wFyn8SEvRVCOCZq2sRtTAsUkLJjrs8vPSHfeEs+bMBhNnZ+7gLE5gSO+FU+IA64d+I9w98DEop24GRNDoWPxRGvX7SON4p47Ygna/rCWynyjCw8kYqRtBHxypwh0HGFLoNx+ulK+WcOXG7F3Nx2I+EPTg6jn1VvwBm1c1iat1Zgnhcna2ZJyZA3cRFOBhNONocr+qAF8zTtHSoJNYmolOlyIC9akyIPfrNl/ALgni4k1KwpEcr4HsyqVabUDW47vH5TqSNfFz+ZY3bZZZf7FLdTBn8So984+vbomWg/rP7OCBALI/u/+kIkgotm4TF/ImuGjUeKITw=="
+              },
+              "c": [
+                  {
+                      "n": "CFDI:EMISOR",
+                      "a": {
+                          "RFC": "ACM010101ABC",
+                          "NOMBRE": "ACME CORP",
+                          "REGIMENFISCAL": "601"
+                      }
+                  },
+                  {
+                      "n": "CFDI:RECEPTOR",
+                      "a": {
+                          "RFC": "EKU9003173C9",
+                          "NOMBRE": "ESCUELA KEMPER URGATE SA DE CV",
+                          "USOCFDI": "P01"
+                      }
+                  },
+                  {
+                      "n": "CFDI:CONCEPTOS",
+                      "c": [
+                          {
+                              "n": "CFDI:CONCEPTO",
+                              "a": {
+                                  "CLAVEPRODSERV": "00195316",
+                                  "CANTIDAD": "1",
+                                  "CLAVEUNIDAD": "H87",
+                                  "UNIDAD": "PZA",
+                                  "DESCRIPCION": "PRODUCTO 1",
+                                  "VALORUNITARIO": "810.18",
+                                  "IMPORTE": "810.18",
+                                  "DESCUENTO": "0"
+                              }
+                          }
+                      ]
+                  },
+                  {
+                      "n": "CFDI:COMPLEMENTO",
+                      "c": [
+                          {
+                              "n": "TFD:TIMBREFISCALDIGITAL",
+                              "a": {
+                                  "XMLNS:TFD": "http://www.sat.gob.mx/TimbreFiscalDigital",
+                                  "XMLNS:XSI": "http://www.w3.org/2001/XMLSchema-instance",
+                                  "XSI:SCHEMALOCATION": "http://www.sat.gob.mx/TimbreFiscalDigital http://www.sat.gob.mx/sitio_internet/cfd/timbrefiscaldigital/TimbreFiscalDigitalv11.xsd",
+                                  "VERSION": "1.1",
+                                  "UUID": "4B2B511C-A29E-4CDF-8AD3-143515CF6152",
+                                  "FECHATIMBRADO": "2019-10-11T02:43:34",
+                                  "SELLOCFD": "CjGJ6Uz6jWQ6wFyn8SEvRVCOCZq2sRtTAsUkLJjrs8vPSHfeEs+bMBhNnZ+7gLE5gSO+FUz6jWQ6wFyn8SEvRVCOCZq2sWPxRGvX7SON4p47Ygna/rCWynyjCw8kYqRtBHxypwh0HGFLoNx+ulK+WcOXG7F3Nx2I+EPTg6jn1Vvz6jWQ6wFyn8SEvRVCOCZq2s3cRFOBhNONocr+qAF8zTtHSoJNYmolOlyIC9akyIPfrNl/ALgni4k1KwpEcr4HsyqVabz6jWQ6wFyn8SEvRVCOCZq2sf7FLdTBn8So984+vbomWg/rP7OCBALI/u/+kIkgotm4TF/ImuGjUeKITw==",
+                                  "NOCERTIFICADOSAT": "00001000000407657133",
+                                  "SELLOSAT": "W82etl3ZwAEDP7qT705tkK7jryQU5WCFUIOw1nmDyy5/iaxsOVuDPVyhK7fQMRG6A6x9WHGYjkMDZ0DkOnq1vcClr2Sn5yOLdWd9VYf6hg6e/RiLTn1mSUni/47rWNbyODfcom3hmKasclgBEYZL6unymQD2bsUfMc0L5ODZ5/AfK36/bYVeakauL1NxXMZ2Zc4RrX5Zd5AkF04VB6UWqDL2/zuCGDccA6/MsJR2BeXnq/hQ1I8WNSNGcy1OzBukQqRbhe9hIRit58F/ZtTtFnzyeT3Tknu9MIZFq/7D+tw0TxUziC+g2n86iiKRXnRJQvlowqKmkPGO8jMefrx8pg==",
+                                  "RFCPROVCERTIF": "ACM100625MC0"
+                              }
+                          }
+                      ]
+                  }
+              ]
+          }
+      ]
+  }
 }
 ```
 

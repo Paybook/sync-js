@@ -64,13 +64,7 @@ exports.run = function run(AUTH, route, payload, method) {
             let responseContentType = response.headers.get("content-type");
             if(responseContentType.includes("/json")) {
               let data = await response.json();
-              // RESOLVE RESPONSE
-              let res =
-                Array.isArray(data.response) ||
-                typeof data.response !== "boolean"
-                  ? data.response
-                  : data;
-              resolve(res);
+              resolve(data);
             }else if(responseContentType.includes('text')){
                 resolve(await response.text());
             }
