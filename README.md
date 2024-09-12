@@ -54,11 +54,11 @@
 
 ## Instalaci贸n
 
-1. __Instalar 鵯tima versi髇 (v2.0.0) mediante NPM:__
+1. __Instalar 煤ltima versi贸n (v2.0.0) mediante NPM:__
 ```bash
   npm i @paybook/sync-js
 ```
-2. __Instalar versi髇 anterior (v1.0.5) mediante NPM:__
+2. __Instalar versi贸n anterior (v1.0.5) mediante NPM:__
 ```bash
   npm i @paybook/sync-js@^1.0.5
 ```
@@ -1740,12 +1740,12 @@ Devuelve:
 </cfdi:Comprobante>
 ```
 
-#### Regresa la informaci贸n extra铆da del archivo adjunto
+#### Regresa el archivo adjunto
 ```javascript
 let attachment = attachments[0].attachments[0];
-let infoExtra = Sync.run(
+let documentAttached = Sync.run(
   {token: token}, 
-  `${attachment.url}/extra`,
+  attachment.url, 
   {}, 
   'GET'
 );
@@ -1889,3 +1889,4 @@ _Made with :blue_heart: by Paybook family._
 [logo]: <https://raw.githubusercontent.com/Paybook/sync-js/master/images/syncLogo.svg?sanitize=true>
 [sync-model-image]: <https://raw.githubusercontent.com/Paybook/sync-js/master/images/resourceModel.svg?sanitize=true>
 [data-flow-img]: <https://raw.githubusercontent.com/Paybook/sync-js/master/images/dataFlow.svg?sanitize=true>
+
