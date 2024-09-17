@@ -2,6 +2,7 @@
 const fetch = require("node-fetch");
 const SYNC_HEAD_URL = 'https://api.syncfy.com/v1'
 const Sync = require('./sync');
+const { version } = require('./package.json');
 
 exports.auth = function auth(AUTH, id_user) {
     return new Promise(async function (resolve,reject) {
@@ -58,6 +59,8 @@ exports.run = function run(AUTH, route, payload, method) {
                     options['body'] = JSON.stringify(payload);
                     break;
             }
+            headers['X-Client-Identifier'] = 'Library-sync-js';
+            headers['X-Client-Version'] = version;
             options['headers'] = headers;
             // AWAIT RESPONSE 
             let response = await fetch(uri, options);
