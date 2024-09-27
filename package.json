@@ -1,6 +1,6 @@
 {
   "name": "@paybook/sync-js",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Syncfy library for Node.js",
   "main": "src/sync.js",
   "scripts": {

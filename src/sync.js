@@ -2,7 +2,7 @@
 const fetch = require("node-fetch");
 const SYNC_HEAD_URL = 'https://api.syncfy.com/v1';
 const Sync = require('./sync');
-const { version } = require('./package.json');
+const { version } = require('../package.json');
 
 exports.auth = function auth(AUTH, id_user) {
     return new Promise(async function (resolve,reject) {
