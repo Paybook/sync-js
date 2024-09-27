@@ -1,6 +1,6 @@
 "use strict"
 const fetch = require("node-fetch");
-const SYNC_HEAD_URL = 'https://api.syncfy.com/v1'
+const SYNC_HEAD_URL = 'https://api.syncfy.com/v1';
 const Sync = require('./sync');
 const { version } = require('./package.json');
 
@@ -8,9 +8,9 @@ exports.auth = function auth(AUTH, id_user) {
     return new Promise(async function (resolve,reject) {
         try {
             let authentication = await Sync.run(AUTH, '/sessions', id_user, 'POST')
-            if('token' in authentication) {
+            if(authentication.response && 'token' in authentication.response) {
                 let response = {};
-                response['token'] = authentication.token;
+                response['token'] = authentication.response.token;
                 resolve(response);
             } else {
                 reject(authentication);
