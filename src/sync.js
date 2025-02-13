@@ -1,6 +1,6 @@
 "use strict"
 const fetch = require("node-fetch");
-const SYNC_HEAD_URL = 'https://api.syncfy.com/v1';
+const SYNC_HEAD_URL = 'https://opendata-api.syncfy.com/v1';
 const Sync = require('./sync');
 const { version } = require('../package.json');
 
