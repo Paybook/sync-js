@@ -74,7 +74,7 @@ const main = async () => {
         };
         let new_credential = await Sync.run(
             token,
-            '/credentials',
+            '/credentials/pulls',
             payload,
             'POST'
         );
