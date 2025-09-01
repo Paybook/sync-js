@@ -689,7 +689,7 @@ Devuelve:
 </thead>
 <tbody>
   <tr>
-    <td rowspan="2">/credentials</td>
+    <td>/credentials</td>
     <td>Consulta credenciales registradas</td>
     <td>GET</td>
 <td rowspan="4">
@@ -707,6 +707,7 @@ Devuelve:
 </td>
   </tr>
   <tr>
+    <td>/credentials/pulls</td>
     <td>Crea o actualiza credenciales</td>
     <td>POST</td>
   <td rowspan="1">
@@ -794,7 +795,7 @@ Cada institución tiene sus propias credenciales, algunas instituciones requiere
   payload['credentials'] = credentials;
   let normalCredential = await Sync.run(
     {token: token}, 
-    '/credentials', 
+    '/credentials/pulls', 
     payload, 
     'POST'
   );
@@ -888,7 +889,7 @@ credentials[twofaSite.credentials[1].name] = 'test';
 payload['credentials'] = credentials;
 let twofaCredentials = await Sync.run(
   {token: token}, 
-  '/credentials', 
+  '/credentials/pulls', 
   payload, 
   'POST'
 );
