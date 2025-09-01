@@ -68,7 +68,7 @@ async function getCatalogs(token, payload) {
 
 // CREAR CREDENCIALES NORMALES
 async function createCredentials(token, payload) {
-    let normalCredentials = await Sync.run({token: token}, '/credentials', payload, 'POST');
+    let normalCredentials = await Sync.run({token: token}, '/credentials/pulls', payload, 'POST');
     return normalCredentials;
 }
 
